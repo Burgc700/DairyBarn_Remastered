@@ -19,7 +19,7 @@
         public string Description => "Ice cream sundae with toppings";
 
         /// <summary>
-        /// Whether this sandwich contains hot fudge
+        /// Whether this sundae contains hot fudge
         /// </summary>
         public bool HotFudge { get; set; } = true;
 
