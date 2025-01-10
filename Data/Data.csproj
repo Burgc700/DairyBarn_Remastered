@@ -7,9 +7,4 @@
     <AssemblyName>DairyBarn.Data</AssemblyName>
     <RootNamespace>DairyBarn.Data</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Ksu.Cs.CodeAnalyzers" Version="1.0.3.4" />
-  </ItemGroup>
-
 </Project>
