@@ -1,14 +1,14 @@
 ﻿namespace DairyBarn.Data
 {
-    public class Sundae
+    public class ClassicSundae
     {
         /// <summary>
-        /// The name of the Sundae instance
+        /// The name of the ClassicSundae instance
         /// </summary>
         /// <remarks>
         /// This is an example of an get-only autoproperty with a default value
         /// </remarks>
-        public string Name { get; } = "Sundae";
+        public string Name { get; } = "Classic Sundae";
 
         /// <summary>
         /// The description of this sundae
@@ -16,7 +16,7 @@
         /// <remarks>
         /// This is also a get-only autoproperty, but it was declared using lambda syntax
         /// </remarks>
-        public string Description => "Ice cream sundae with toppings";
+        public string Description => "Standard ice cream sundae with toppings";
 
         /// <summary>
         /// Whether this sundae contains hot fudge
