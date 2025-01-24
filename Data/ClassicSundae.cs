@@ -1,5 +1,8 @@
 ﻿namespace DairyBarn.Data
 {
+    /// <summary>
+    /// Definition of ClassicSundae class
+    /// </summary>
     public class ClassicSundae
     {
         /// <summary>
@@ -23,8 +26,20 @@
         /// </summary>
         public bool HotFudge { get; set; } = true;
 
-        //YOU DO THIS
-        //Add properties for other toppings
+        /// <summary>
+        /// Whether this sundae contains peanuts.
+        /// </summary>
+        public bool Peanuts { get; set; } = false;
+
+        /// <summary>
+        /// Whether this sundae contains whipped cream.
+        /// </summary>
+        public bool WhippedCream { get; set; } = false;
+
+        /// <summary>
+        /// Whether this sundae contains cherrys.
+        /// </summary>
+        public bool Cherry { get; set; } = false;
 
         /// <summary>
         /// The price of this sundae
@@ -33,9 +48,18 @@
         {
             get
             {
-                decimal cost = 0m;
-
-                //YOU DO THIS: take customizations into account
+                decimal cost = 3.49m;
+                if(Peanuts == true)
+                {
+                    decimal peanutCost = .50m;
+                    cost += peanutCost;
+                }
+                else if(WhippedCream == true)
+                {
+                    decimal whippedCreamCost = .50m;
+                    cost += whippedCreamCost;
+                }
+                
 
                 return cost;
             }
@@ -48,9 +72,26 @@
         {
             get
             {
-                uint cals = 0;
+                uint cals = 350;
 
                 //YOU DO THIS: take customizations into account
+                if(HotFudge == false)
+                {
+                    cals -= 130;
+                }
+                else if(Peanuts == true)
+                {
+                    cals += 50;
+                }
+                else if(WhippedCream == true)
+                {
+                    cals += 80;
+                }
+                else if(Cherry == true)
+                {
+                    cals += 10;
+                }
+
 
                 return cals;
             }
@@ -65,7 +106,22 @@
             {
                 List<string> instructions = new();
 
-                //YOU DO THIS: take customizations into account
+                if(HotFudge == false)
+                {
+                    instructions.Add("Hold Hot Fudge");
+                }
+                else if(WhippedCream == true)
+                {
+                    instructions.Add("Add Whipped Cream");
+                }
+                else if(Peanuts == true)
+                {
+                    instructions.Add("Add Peanuts");
+                }
+                else if(Cherry == true)
+                {
+                    instructions.Add("Add Cherry");
+                }
 
                 return instructions;
             }
