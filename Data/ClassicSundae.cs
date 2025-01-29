@@ -27,17 +27,17 @@
         public bool HotFudge { get; set; } = true;
 
         /// <summary>
-        /// Whether this sundae contains peanuts.
+        /// Whether this sundae contains peanuts
         /// </summary>
         public bool Peanuts { get; set; } = false;
 
         /// <summary>
-        /// Whether this sundae contains whipped cream.
+        /// Whether this sundae contains whipped cream
         /// </summary>
         public bool WhippedCream { get; set; } = false;
 
         /// <summary>
-        /// Whether this sundae contains cherrys.
+        /// Whether this sundae contains cherry
         /// </summary>
         public bool Cherry { get; set; } = false;
 
