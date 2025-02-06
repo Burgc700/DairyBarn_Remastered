@@ -22,11 +22,6 @@ namespace DairyBarn.Data
         public string Description { get; } = "A vegetarian patty with pepper jack cheese, Chipotle mayo, lettuce, and tomato on top of a toasted bun";
 
         /// <summary>
-        /// Whether this burger contains pepper jack cheese
-        /// </summary>
-        public bool PepperJackCheese { get; set; } = true;
-
-        /// <summary>
         /// Whether this burger contains chipotle mayo
         /// </summary>
         public bool ChipotleMayo { get; set; } = true;
@@ -52,6 +47,46 @@ namespace DairyBarn.Data
         public bool Pickles { get; set; } = false;
 
         /// <summary>
+        /// The default cheese for this burger.
+        /// </summary>
+        private Cheese _defaultCheese = Cheese.PepperJack;
+
+        /// <summary>
+        /// The type of cheese on this burger.
+        /// </summary>
+        public Cheese TypeOfCheese
+        {
+            get => _defaultCheese;
+            set
+            {
+                if(value == _defaultCheese || value == Cheese.None)
+                {
+                    _defaultCheese = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The default number of patties on this burger.
+        /// </summary>
+        private int _defaultPattie = 1;
+
+        /// <summary>
+        /// The number of patties on this burger.
+        /// </summary>
+        public int Patties
+        {
+            get => _defaultPattie;
+            set
+            {
+                if(value == _defaultPattie || value == 2)
+                {
+                    _defaultPattie = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// The price of this burger
         /// </summary>
         public decimal Price
@@ -59,6 +94,10 @@ namespace DairyBarn.Data
             get
             {
                 decimal cost = 6.99m;
+                if(Patties == 2)
+                {
+                    cost += 2.00m;
+                }
                 return cost;
             }
         }
@@ -72,9 +111,18 @@ namespace DairyBarn.Data
             {
                 uint cals = 585;
 
-                if(PepperJackCheese == false)
+                if(TypeOfCheese != Cheese.PepperJack)
                 {
                     cals -= 85;
+                }
+                else if(TypeOfCheese != Cheese.PepperJack && Patties == 2)
+                {
+                    cals += 250;
+                }
+                else if (TypeOfCheese == Cheese.PepperJack && Patties == 2)
+                {
+                    cals += 250;
+                    cals += 85;
                 }
                 else if(ChipotleMayo == false)
                 {
@@ -110,7 +158,7 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if(PepperJackCheese == false)
+                if(TypeOfCheese != Cheese.PepperJack)
                 {
                     instructions.Add("Hold Pepper Jack Cheese");
                 }
@@ -133,6 +181,10 @@ namespace DairyBarn.Data
                 else if(Pickles == true)
                 {
                     instructions.Add("Add Pickles");
+                }
+                else if(Patties == 2)
+                {
+                    instructions.Add("Double.");
                 }
 
                 return instructions;

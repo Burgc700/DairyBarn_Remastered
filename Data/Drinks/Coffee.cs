@@ -42,6 +42,11 @@ namespace DairyBarn.Data
         public bool Sugar { get; set; } = false;
 
         /// <summary>
+        /// The size of cup for this coffee.
+        /// </summary>
+        private CoffeeSize SizeOfCoffee { get; set; } = CoffeeSize.Tall;
+
+        /// <summary>
         /// The price of this coffee
         /// </summary>
         public decimal Price
@@ -49,6 +54,14 @@ namespace DairyBarn.Data
             get
             {
                 decimal cost = 2.49m;
+                if(SizeOfCoffee == CoffeeSize.Grande)
+                {
+                    cost += .75m;
+                }
+                else if(SizeOfCoffee == CoffeeSize.Venti)
+                {
+                    cost += 1.25m;
+                }
                 return cost;
             }
         }
@@ -73,6 +86,14 @@ namespace DairyBarn.Data
                 else if(Sugar == true)
                 {
                     cals += 25;
+                }
+                else if(SizeOfCoffee == CoffeeSize.Grande)
+                {
+                    cals += (uint)(cals * (16 / 12));
+                }
+                else if(SizeOfCoffee == CoffeeSize.Venti)
+                {
+                    cals += (uint)(cals * (20 / 12));
                 }
 
                 return cals;
@@ -103,6 +124,14 @@ namespace DairyBarn.Data
                 else if(Sugar == true)
                 {
                     instructions.Add("Add Sugar");
+                }
+                else if(SizeOfCoffee == CoffeeSize.Grande)
+                {
+                    instructions.Add("Grande");
+                }
+                else if(SizeOfCoffee == CoffeeSize.Venti)
+                {
+                    instructions.Add("Venti");
                 }
 
                 return instructions;

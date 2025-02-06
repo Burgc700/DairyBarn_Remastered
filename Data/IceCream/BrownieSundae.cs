@@ -1,60 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DairyBarn.Data
+﻿namespace DairyBarn.Data
 {
     /// <summary>
-    /// Definition of StrawberryShortcake class
+    /// Definition of BrownieSundae class
     /// </summary>
-    public class StrawBerryShortcake
+    public class BrownieSundae
     {
         /// <summary>
-        /// The name of the StrawberryShortcake instance
+        /// The name of the BrownieSundae instance
         /// </summary>
-        public string Name { get; } = "Strawberry Shortcake";
+        public string Name { get; } = "Brownie Sundae";
 
         /// <summary>
         /// The description of this sundae
         /// </summary>
-        public string Description { get; } = "A sundae with two scoops of ice cream, strawberry sauce, whipped cream, and a cherry all on top of buttery pound cake";
+        public string Description { get; } = "A decadent sundae with two scoops of ice cream, whipped cream, cherry, and hot fudge on top of a gooey brownie";
 
         /// <summary>
-        /// Whether this sundae has strawberry sauce
-        /// </summary>
-        public bool StrawberrySauce { get; set; } = true;
-
-        /// <summary>
-        /// Whether this sundae has whipped cream
+        /// Whether this sundae contains Whipped Cream
         /// </summary>
         public bool WhippedCream { get; set; } = true;
 
         /// <summary>
-        /// Whether this sundae has cherry
+        /// Whether this sundae contains cherry
         /// </summary>
         public bool Cherry { get; set; } = true;
 
         /// <summary>
-        /// Whether this sundae has peanuts
+        /// Whether this sundae contains peanuts
         /// </summary>
         public bool Peanuts { get; set; } = false;
 
         /// <summary>
-        /// The price of this sundae
+        /// The default sauce for this sundae.
+        /// </summary>
+        private IceCreamSauce _defaultSauce = IceCreamSauce.HotFudge;
+
+        /// <summary>
+        /// The type of sauces that can go on this sundae.
+        /// </summary>
+        public IceCreamSauce TypeOfSauce
+        {
+            get => _defaultSauce;
+            set
+            {
+                if(value == _defaultSauce || value == IceCreamSauce.None)
+                {
+                    _defaultSauce = value;
+                }
+                else
+                {
+                    throw new ArgumentException("The only sauces allowed are Hot Fudge or none.");
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// The number of scoops of ice cream on this sundae.
+        /// </summary>
+        public int Scoops => 2;
+        
+
+        /// <summary>
+        /// The price of this sundae.
         /// </summary>
         public decimal Price
         {
             get
             {
                 decimal cost = 5.99m;
-
                 if(Peanuts == true)
                 {
                     cost += .50m;
                 }
-
                 return cost;
             }
         }
@@ -66,19 +84,19 @@ namespace DairyBarn.Data
         {
             get
             {
-                uint cals = 790;
+                uint cals = 910;
 
-                if(StrawberrySauce == false)
-                {
-                    cals -= 40;
-                }
-                else if(WhippedCream == false)
+                if(WhippedCream == false)
                 {
                     cals -= 80;
                 }
                 else if(Cherry == false)
                 {
                     cals -= 10;
+                }
+                else if(TypeOfSauce != IceCreamSauce.HotFudge)
+                {
+                    cals -= 130;
                 }
                 else if(Peanuts == true)
                 {
@@ -98,25 +116,26 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (StrawberrySauce == false)
+                if(TypeOfSauce != IceCreamSauce.HotFudge)
                 {
-                    instructions.Add("Hold Strawberry Sauce");
+                    instructions.Add("Hold Hot Fudge");
                 }
-                else if (WhippedCream == false)
+                else if(WhippedCream == false)
                 {
                     instructions.Add("Hold Whipped Cream");
                 }
-                else if (Cherry == false)
+                else if(Cherry == false)
                 {
                     instructions.Add("Hold Cherry");
                 }
-                else if (Peanuts == true)
+                else if(Peanuts == true)
                 {
                     instructions.Add("Add Peanuts");
-                }
+                }               
 
                 return instructions;
             }
         }
+
     }
 }

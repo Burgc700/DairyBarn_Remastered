@@ -22,11 +22,6 @@ namespace DairyBarn.Data
         public string Description { get; } = "A burger with grilled onions, mushroom, and Swiss cheese on top of a toasted bun";
 
         /// <summary>
-        /// Whether this burger contains Swiss cheese
-        /// </summary>
-        public bool SwissCheese { get; set; } = true;
-
-        /// <summary>
         /// Whether this burger contains grilled onions
         /// </summary>
         public bool GrilledOnions { get; set; } = true;
@@ -37,6 +32,46 @@ namespace DairyBarn.Data
         public bool GrilledMushrooms { get; set; } = true;
 
         /// <summary>
+        /// The default type of cheese on this burger.
+        /// </summary>
+        private Cheese _defaultCheese = Cheese.Swiss;
+
+        /// <summary>
+        /// The types of cheese allowed on this burger.
+        /// </summary>
+        public Cheese TypeOfCheese
+        {
+            get => _defaultCheese;
+            set
+            {
+                if(value == _defaultCheese || value == Cheese.None)
+                {
+                    _defaultCheese = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The default number of patties.
+        /// </summary>
+        private int _defaultPatties = 1;
+
+        /// <summary>
+        /// The number of patties allowed on this burger.
+        /// </summary>
+        public int Patties
+        {
+            get => _defaultPatties;
+            set
+            {
+                if(value == _defaultPatties || value == 2)
+                {
+                    _defaultPatties = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// The price of this burger
         /// </summary>
         public decimal Price
@@ -44,6 +79,10 @@ namespace DairyBarn.Data
             get
             {
                 decimal cost = 6.99m;
+                if(Patties == 2)
+                {
+                    cost += 2.00m;
+                }
                 return cost;
             }
         }
@@ -57,7 +96,16 @@ namespace DairyBarn.Data
             {
                 uint cals = 695;
 
-                if(SwissCheese == false)
+                if(TypeOfCheese != Cheese.Swiss && Patties == 2)
+                {
+                    cals += 350;
+                }
+                else if(TypeOfCheese == Cheese.Swiss && Patties == 2)
+                {
+                    cals += 350;
+                    cals += 85;
+                }
+                else if(TypeOfCheese != Cheese.Swiss)
                 {
                     cals -= 85;
                 }
@@ -83,7 +131,7 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if(SwissCheese == false)
+                if(TypeOfCheese != Cheese.Swiss)
                 {
                     instructions.Add("Hold Swiss Cheese");
                 }
@@ -94,6 +142,10 @@ namespace DairyBarn.Data
                 else if(GrilledMushrooms == false)
                 {
                     instructions.Add("Hold Grilled Mushrooms");
+                }
+                else if(Patties == 2)
+                {
+                    instructions.Add("Double");
                 }
 
                 return instructions;

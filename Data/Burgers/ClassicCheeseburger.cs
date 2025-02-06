@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,11 +21,6 @@ namespace DairyBarn.Data
         /// The description of this burger
         /// </summary>
         public string Description { get; } = "Traditional cheeseburger with American cheese, ketchup, mustard, onions, and pickles on a toasted bun";
-
-        /// <summary>
-        /// Whether this burger contains American cheese
-        /// </summary>
-        public bool AmericanCheese { get; set; } = true;
 
         /// <summary>
         /// Whether this burger contains ketchup
@@ -62,6 +58,46 @@ namespace DairyBarn.Data
         public bool Tomato { get; set; } = false;
 
         /// <summary>
+        /// The default cheese for this burger.
+        /// </summary>
+        private Cheese _defaultCheese = Cheese.American;
+
+        /// <summary>
+        /// The type of cheese on this burger.
+        /// </summary>
+        public Cheese TypeOfCheese
+        {
+            get => _defaultCheese;
+            set
+            {
+                if(value == _defaultCheese || value == Cheese.None)
+                {
+                    _defaultCheese = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The default number of patties on this burger.
+        /// </summary>
+        private int _defaultPattie = 1;
+
+        /// <summary>
+        /// The number of patties on this burger.
+        /// </summary>
+        public int Patties
+        {
+            get => _defaultPattie;
+            set
+            {
+                if(value == _defaultPattie || value == 2 || value == 3)
+                {
+                    _defaultPattie = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// The price of this burger
         /// </summary>
         public decimal Price
@@ -82,6 +118,15 @@ namespace DairyBarn.Data
                 {
                     cost += .25m;
                 }
+                else if(Patties == 2)
+                {
+                    cost += 2.00m;
+                }
+                else if(Patties == 3)
+                {
+                    cost += 2.00m;
+                    cost += 2.00m;
+                }
 
                 return cost;
             }
@@ -96,9 +141,30 @@ namespace DairyBarn.Data
             {
                 uint cals = 615;
 
-                if(AmericanCheese == false)
+                if(TypeOfCheese != Cheese.American)
                 {
                     cals -= 80;
+                }
+                else if(TypeOfCheese != Cheese.American && Patties == 2)
+                {
+                    cals += 350;
+                }
+                else if (TypeOfCheese != Cheese.American && Patties == 3)
+                {
+                    cals += 350;
+                    cals += 350;
+                }
+                else if (TypeOfCheese == Cheese.American && Patties == 2)
+                {
+                    cals += 350;
+                    cals += 80;
+                }
+                else if (TypeOfCheese == Cheese.American && Patties == 3)
+                {
+                    cals += 350;
+                    cals += 350;
+                    cals += 80;
+                    cals += 80;
                 }
                 else if(Ketchup == false)
                 {
@@ -142,7 +208,7 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if(AmericanCheese == false)
+                if(TypeOfCheese != Cheese.American)
                 {
                     instructions.Add("Hold American Cheese");
                 }
@@ -173,6 +239,14 @@ namespace DairyBarn.Data
                 else if(Tomato == true)
                 {
                     instructions.Add("Add Tomato");
+                }
+                else if(Patties == 2)
+                {
+                    instructions.Add("Double.");
+                }
+                else if(Patties == 3)
+                {
+                    instructions.Add("Triple.");
                 }
 
                 return instructions;
