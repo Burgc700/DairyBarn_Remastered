@@ -9,27 +9,17 @@ namespace DairyBarn.Data
     /// <summary>
     /// Definition of Latte class.
     /// </summary>
-    public class Latte
+    public class Latte : Drink
     {
         /// <summary>
         /// The name of the Latte instance.
         /// </summary>
-        public string Name { get; } = "Latte";
+        public override string Name { get; } = "Latte";
 
         /// <summary>
         /// The description of this drink.
         /// </summary>
-        public string Description { get; } = "Espresso and stream milk customized the way you like it.";
-
-        /// <summary>
-        /// Whether this drink is iced.
-        /// </summary>
-        public bool Iced { get; set; } = false;
-
-        /// <summary>
-        /// Whether this drink is decaf.
-        /// </summary>
-        public bool Decaf { get; set; } = false;
+        public override string Description { get; } = "Espresso and stream milk customized the way you like it.";
 
         /// <summary>
         /// Whether this drink contains vanilla.
@@ -37,28 +27,23 @@ namespace DairyBarn.Data
         public bool Vanilla { get; set; } = false;
 
         /// <summary>
-        /// The size of the drink.
-        /// </summary>
-        public CoffeeSize SizeChoice { get; set; } = CoffeeSize.Tall;
-
-        /// <summary>
         /// The price of this drink.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
                 decimal cost = 3.49m;
 
-                if (SizeChoice == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     cost += .75m;
                 }
-                else if (SizeChoice == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     cost += 1.25m;
                 }
-                else if (Vanilla == true)
+                if (Vanilla == true)
                 {
                     cost += .24m;
                 }
@@ -70,21 +55,21 @@ namespace DairyBarn.Data
         /// <summary>
         /// The total number of calories in this drink.
         /// </summary>
-        public uint Calories
+        public override uint Calories
         {
             get
             {
                 uint cals = 150;
 
-                if(SizeChoice == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     cals += (uint)(cals * (16 / 12));
                 }
-                else if(SizeChoice == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     cals += (uint)(cals * (20 / 12));
                 }
-                else if(Vanilla == true)
+                if (Vanilla == true)
                 {
                     cals += 80;
                 }
@@ -96,7 +81,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// Information for the preparation of this drink
         /// </summary>
-        public IEnumerable<string> PreparationInformation
+        public override IEnumerable<string> PreparationInformation
         {
             get
             {
@@ -106,25 +91,32 @@ namespace DairyBarn.Data
                 {
                     instructions.Add("Iced.");
                 }
-                else if(Decaf == true)
+                if (Decaf == true)
                 {
                     instructions.Add("Decaf.");
                 }
-                else if(Vanilla == true)
+                if (Vanilla == true)
                 {
                     instructions.Add("Add Vanilla.");
                 }
-                else if(SizeChoice == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     instructions.Add("Grande");
                 }
-                else if(SizeChoice == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     instructions.Add("Venti");
                 }
 
                 return instructions;
             }
+        }
+
+        public Latte()
+        {
+            _sizeOfCup = CoffeeSize.Tall;
+            Decaf = false;
+            Iced = false;
         }
     }
 }

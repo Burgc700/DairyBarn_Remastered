@@ -9,17 +9,17 @@ namespace DairyBarn.Data
     /// <summary>
     /// Definition of StrawberryShortcake class
     /// </summary>
-    public class StrawBerryShortcake
+    public class StrawBerryShortcake : IceCream
     {
         /// <summary>
         /// The name of the StrawberryShortcake instance
         /// </summary>
-        public string Name { get; } = "Strawberry Shortcake";
+        public override string Name { get; } = "Strawberry Shortcake";
 
         /// <summary>
         /// The description of this sundae
         /// </summary>
-        public string Description { get; } = "A sundae with two scoops of ice cream, strawberry sauce, whipped cream, and a cherry all on top of buttery pound cake";
+        public override string Description { get; } = "A sundae with two scoops of ice cream, strawberry sauce, whipped cream, and a cherry all on top of buttery pound cake";
 
         /// <summary>
         /// Whether this sundae has whipped cream
@@ -37,40 +37,15 @@ namespace DairyBarn.Data
         public bool Peanuts { get; set; } = false;
 
         /// <summary>
-        /// The number of scoops of ice cream that can go on this sundae.
-        /// </summary>
-        public int Scoops => 2;
-
-        /// <summary>
-        /// The default sauce that goes on this sundae.
-        /// </summary>
-        private IceCreamSauce _defaultSauce = IceCreamSauce.StrawberrySauce;
-
-        /// <summary>
-        /// The type of sauces that can go on this sundae.
-        /// </summary>
-        public IceCreamSauce TypeOfSauce
-        {
-            get => _defaultSauce;
-            set
-            {
-                if(value == IceCreamSauce.StrawberrySauce || value == IceCreamSauce.None)
-                {
-                    _defaultSauce = value;
-                }
-            }
-        }
-
-        /// <summary>
         /// The price of this sundae
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
                 decimal cost = 5.99m;
 
-                if(Peanuts == true)
+                if (Peanuts == true)
                 {
                     cost += .50m;
                 }
@@ -82,25 +57,25 @@ namespace DairyBarn.Data
         /// <summary>
         /// The total number of calories in this sundae
         /// </summary>
-        public uint Calories
+        public override uint Calories
         {
             get
             {
                 uint cals = 770;
 
-                if(TypeOfSauce != IceCreamSauce.StrawberrySauce)
+                if (SauceChoice != IceCreamSauce.StrawberrySauce)
                 {
                     cals -= 40;
                 }
-                else if(WhippedCream == false)
+                if (WhippedCream == false)
                 {
                     cals -= 80;
                 }
-                else if(Cherry == false)
+                if (Cherry == false)
                 {
                     cals -= 10;
                 }
-                else if(Peanuts == true)
+                if (Peanuts == true)
                 {
                     cals += 50;
                 }
@@ -112,31 +87,42 @@ namespace DairyBarn.Data
         /// <summary>
         /// Information for the preparation of this sundae
         /// </summary>
-        public IEnumerable<string> PreparationInformation
+        public override IEnumerable<string> PreparationInformation
         {
             get
             {
                 List<string> instructions = new();
 
-                if (TypeOfSauce != IceCreamSauce.StrawberrySauce)
+                if (SauceChoice != IceCreamSauce.StrawberrySauce)
                 {
                     instructions.Add("Hold Strawberry Sauce");
                 }
-                else if (WhippedCream == false)
+                if (WhippedCream == false)
                 {
                     instructions.Add("Hold Whipped Cream");
                 }
-                else if (Cherry == false)
+                if (Cherry == false)
                 {
                     instructions.Add("Hold Cherry");
                 }
-                else if (Peanuts == true)
+                if (Peanuts == true)
                 {
                     instructions.Add("Add Peanuts");
                 }
 
                 return instructions;
             }
+        }
+
+        public StrawBerryShortcake()
+        {
+            _defaultScoops = 2;
+            _maxScoops = 2;
+            _scoops = _defaultScoops;
+            _sauceChoice = IceCreamSauce.StrawberrySauce;
+            _defaultChoice = IceCreamSauce.StrawberrySauce;
+            SauceOptions.Add(_defaultChoice);
+            SauceOptions.Add(IceCreamSauce.StrawberrySauce);
         }
     }
 }

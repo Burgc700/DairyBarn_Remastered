@@ -1,19 +1,21 @@
-﻿namespace DairyBarn.Data
+﻿using System.Xml.Linq;
+
+namespace DairyBarn.Data
 {
     /// <summary>
     /// Definition of BrownieSundae class
     /// </summary>
-    public class BrownieSundae
+    public class BrownieSundae : IceCream
     {
         /// <summary>
         /// The name of the BrownieSundae instance
         /// </summary>
-        public string Name { get; } = "Brownie Sundae";
+        public override string Name { get; } = "Brownie Sundae";
 
         /// <summary>
         /// The description of this sundae
         /// </summary>
-        public string Description { get; } = "A decadent sundae with two scoops of ice cream, whipped cream, cherry, and hot fudge on top of a gooey brownie";
+        public override string Description { get; } = "A decadent sundae with two scoops of ice cream, whipped cream, cherry, and hot fudge on top of a gooey brownie";
 
         /// <summary>
         /// Whether this sundae contains Whipped Cream
@@ -31,45 +33,14 @@
         public bool Peanuts { get; set; } = false;
 
         /// <summary>
-        /// The default sauce for this sundae.
-        /// </summary>
-        private IceCreamSauce _defaultSauce = IceCreamSauce.HotFudge;
-
-        /// <summary>
-        /// The type of sauces that can go on this sundae.
-        /// </summary>
-        public IceCreamSauce TypeOfSauce
-        {
-            get => _defaultSauce;
-            set
-            {
-                if(value == _defaultSauce || value == IceCreamSauce.None)
-                {
-                    _defaultSauce = value;
-                }
-                else
-                {
-                    throw new ArgumentException("The only sauces allowed are Hot Fudge or none.");
-                }
-
-            }
-        }
-
-        /// <summary>
-        /// The number of scoops of ice cream on this sundae.
-        /// </summary>
-        public int Scoops => 2;
-        
-
-        /// <summary>
         /// The price of this sundae.
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
                 decimal cost = 5.99m;
-                if(Peanuts == true)
+                if (Peanuts == true)
                 {
                     cost += .50m;
                 }
@@ -80,25 +51,25 @@
         /// <summary>
         /// The total number of calories in this sundae
         /// </summary>
-        public uint Calories
+        public override uint Calories
         {
             get
             {
                 uint cals = 910;
 
-                if(WhippedCream == false)
+                if (WhippedCream == false)
                 {
                     cals -= 80;
                 }
-                else if(Cherry == false)
+                if (Cherry == false)
                 {
                     cals -= 10;
                 }
-                else if(TypeOfSauce != IceCreamSauce.HotFudge)
+                if (SauceChoice != IceCreamSauce.HotFudge)
                 {
                     cals -= 130;
                 }
-                else if(Peanuts == true)
+                if (Peanuts == true)
                 {
                     cals += 50;
                 }
@@ -110,32 +81,45 @@
         /// <summary>
         /// Information for the preparation of this sundae
         /// </summary>
-        public IEnumerable<string> PreparationInformation
+        public override IEnumerable<string> PreparationInformation
         {
             get
             {
                 List<string> instructions = new();
 
-                if(TypeOfSauce != IceCreamSauce.HotFudge)
+                if (SauceChoice != IceCreamSauce.HotFudge)
                 {
                     instructions.Add("Hold Hot Fudge");
                 }
-                else if(WhippedCream == false)
+                if (WhippedCream == false)
                 {
                     instructions.Add("Hold Whipped Cream");
                 }
-                else if(Cherry == false)
+                if (Cherry == false)
                 {
                     instructions.Add("Hold Cherry");
                 }
-                else if(Peanuts == true)
+                if (Peanuts == true)
                 {
                     instructions.Add("Add Peanuts");
-                }               
+                }
 
                 return instructions;
             }
         }
 
+        /// <summary>
+        /// The constructor.
+        /// </summary>
+        public BrownieSundae()
+        {
+            _defaultScoops = 2;
+            _maxScoops = 2;
+            _scoops = _defaultScoops;
+            _sauceChoice = IceCreamSauce.HotFudge;
+            _defaultChoice = IceCreamSauce.HotFudge;
+            SauceOptions.Add(_defaultChoice);
+            SauceOptions.Add(IceCreamSauce.None);
+        }
     }
 }

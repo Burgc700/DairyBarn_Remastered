@@ -9,27 +9,17 @@ namespace DairyBarn.Data
     /// <summary>
     /// Definition of Coffee class
     /// </summary>
-    public class Coffee
+    public class Coffee : Drink
     {
         /// <summary>
         /// THe name of the Coffee instance
         /// </summary>
-        public string Name { get; } = "Coffee";
+        public override string Name { get; } = "Coffee";
 
         /// <summary>
         /// THe description of this coffee
         /// </summary>
-        public string Description { get; } = "Freshly brewed coffee with decaf and iced options available";
-
-        /// <summary>
-        /// Whether this coffee is iced
-        /// </summary>
-        public bool Iced { get; set; } = false;
-
-        /// <summary>
-        /// Whether this coffee is decaf
-        /// </summary>
-        public bool Decaf { get; set; } = false;
+        public override string Description { get; } = "Freshly brewed coffee with decaf and iced options available";
 
         /// <summary>
         /// Whether this coffee contains cream
@@ -42,23 +32,18 @@ namespace DairyBarn.Data
         public bool Sugar { get; set; } = false;
 
         /// <summary>
-        /// The size of cup for this coffee.
-        /// </summary>
-        private CoffeeSize SizeOfCoffee { get; set; } = CoffeeSize.Tall;
-
-        /// <summary>
         /// The price of this coffee
         /// </summary>
-        public decimal Price
+        public override decimal Price
         {
             get
             {
                 decimal cost = 2.49m;
-                if(SizeOfCoffee == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     cost += .75m;
                 }
-                else if(SizeOfCoffee == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     cost += 1.25m;
                 }
@@ -69,29 +54,29 @@ namespace DairyBarn.Data
         /// <summary>
         /// The total number of calories in this coffee
         /// </summary>
-        public uint Calories
+        public override uint Calories
         {
             get
             {
                 uint cals = 5;
 
-                if(Decaf == true)
+                if (Decaf == true)
                 {
                     cals -= 3;
                 }
-                else if(Cream == true)
+                if (Cream == true)
                 {
                     cals += 40;
                 }
-                else if(Sugar == true)
+                if (Sugar == true)
                 {
                     cals += 25;
                 }
-                else if(SizeOfCoffee == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     cals += (uint)(cals * (16 / 12));
                 }
-                else if(SizeOfCoffee == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     cals += (uint)(cals * (20 / 12));
                 }
@@ -103,33 +88,33 @@ namespace DairyBarn.Data
         /// <summary>
         /// Information for the preparation of this coffee
         /// </summary>
-        public IEnumerable<string> PreparationInformation
+        public override IEnumerable<string> PreparationInformation
         {
             get
             {
                 List<string> instructions = new();
 
-                if(Iced == true)
+                if (Iced == true)
                 {
                     instructions.Add("Iced");
                 }
-                else if(Decaf == true)
+                if (Decaf == true)
                 {
                     instructions.Add("Decaf");
                 }
-                else if(Cream == true)
+                if (Cream == true)
                 {
                     instructions.Add("Add Cream");
                 }
-                else if(Sugar == true)
+                if (Sugar == true)
                 {
                     instructions.Add("Add Sugar");
                 }
-                else if(SizeOfCoffee == CoffeeSize.Grande)
+                if (SizeOfCup == CoffeeSize.Grande)
                 {
                     instructions.Add("Grande");
                 }
-                else if(SizeOfCoffee == CoffeeSize.Venti)
+                if (SizeOfCup == CoffeeSize.Venti)
                 {
                     instructions.Add("Venti");
                 }
@@ -137,5 +122,13 @@ namespace DairyBarn.Data
                 return instructions;
             }
         }
+
+        public Coffee()
+        {
+            _sizeOfCup = CoffeeSize.Tall;
+            Decaf = false;
+            Iced = false;
+        }
+
     }
 }
