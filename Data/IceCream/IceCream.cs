@@ -39,32 +39,32 @@ namespace DairyBarn.Data
         /// <summary>
         /// The number of scoops.
         /// </summary>
-        protected int _defaultScoops;
+        protected uint _defaultScoops;
 
         /// <summary>
         /// The minimum number of scoops.
         /// </summary>
-        protected int _minScoops = 1;
+        protected uint _minScoops;
 
         /// <summary>
         /// The maximum number of scoops.
         /// </summary>
-        protected int _maxScoops;
+        protected uint _maxScoops;
 
         /// <summary>
         /// The number of scoops in this menu item.
         /// </summary>
-        protected int _scoops;
+        protected uint _scoops;
 
         /// <summary>
         /// The number of scoops of ice cream.
         /// </summary>
-        public int Scoops
+        public uint Scoops
         {
             get => _scoops;
             set
             {
-                if (value >= _minScoops || value <= _maxScoops)
+                if (value >= _minScoops && value <= _maxScoops)
                 {
                     _scoops = value;
                 }

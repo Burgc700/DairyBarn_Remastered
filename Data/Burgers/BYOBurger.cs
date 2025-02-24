@@ -22,13 +22,28 @@ namespace DairyBarn.Data
         public override string Description => "Your choice of burger patty, cheese, and toppings.";
 
         /// <summary>
+        /// If the patties are veggie patties.
+        /// </summary>
+        public override bool Veggie
+        {
+            get => _veggie;
+            set
+            {
+                _veggie = value;
+
+            }
+        }
+
+        /// <summary>
         /// The constructor
         /// </summary>
         public BYOBurger()
         {
-            _startingCals = 530;
+            _startingCals = 150;
             _startingPrice = 6.29m;
             _maxPatties = 3;
+            _patties = 1;
+            _veggie = false;
             _defaultCheese = Cheese.American;
             _cheeseChoice = Cheese.American;
             CheeseOptions.Add(_defaultCheese);

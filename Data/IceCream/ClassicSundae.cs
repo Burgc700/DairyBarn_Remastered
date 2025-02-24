@@ -137,7 +137,7 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (SauceChoice != IceCreamSauce.HotFudge)
+                if (SauceChoice != IceCreamSauce.HotFudge && SauceChoice == IceCreamSauce.None)
                 {
                     instructions.Add("Hold Hot Fudge");
                 }
@@ -153,9 +153,9 @@ namespace DairyBarn.Data
                 {
                     instructions.Add("Add Cherry");
                 }
-                if (Scoops == 1)
+                if(Scoops == 1)
                 {
-                    instructions.Add("1 Scoop.");
+                    instructions.Add("1 Scoop");
                 }
                 if (Scoops == 2)
                 {
@@ -188,9 +188,10 @@ namespace DairyBarn.Data
 
         public ClassicSundae()
         {
-            _defaultScoops = 2;
+            _defaultScoops = 1;
+            _minScoops = 1;
             _maxScoops = 3;
-
+            _scoops = 1;
             _sauceChoice = IceCreamSauce.HotFudge;
             _defaultChoice = IceCreamSauce.HotFudge;
             SauceOptions.Add(_defaultChoice);

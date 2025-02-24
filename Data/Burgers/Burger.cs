@@ -111,13 +111,15 @@ namespace DairyBarn.Data
             {
                 uint cals = _startingCals;
 
+                cals += (IngredientDatabase.GetCheeseCalories(CheeseChoice) * Patties);
+
                 if (Veggie == false)
                 {
-                    cals += (uint)(350 * _patties);
+                    cals += (350 * Patties);
                 }
                 if (Veggie == true)
                 {
-                    cals += (uint)(250 * _patties);
+                    cals += (250 * Patties);
                 }
                 foreach (BurgerTopping topping in AllToppings.Keys)
                 {
@@ -139,10 +141,9 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                //how to make it so when you have veggie burger dont say add veggie patty
-                if (Veggie == true)
+                if (Veggie == true && _defaultVeggie == false)
                 {
-                    instructions.Add("Add veggie patties");
+                    instructions.Add("Add Veggie Patties");
                 }
                 if (Patties == 2)
                 {
@@ -151,7 +152,20 @@ namespace DairyBarn.Data
                 if (Patties == 3)
                 {
                     instructions.Add("Triple");
+                }   
+                if(CheeseChoice != _defaultCheese && CheeseChoice != Cheese.None)
+                {
+                    instructions.Add($"Add {CheeseChoice} Cheese");
                 }
+                if(CheeseChoice != Cheese.None && _defaultCheese == Cheese.None)
+                {
+                    instructions.Add($"Add {CheeseChoice} Cheese");
+                }
+                if(CheeseChoice == Cheese.None)
+                {
+                    instructions.Add($"Hold {_defaultCheese} Cheese");
+                }
+                
                 foreach (BurgerTopping topping in AllToppings.Keys)
                 {
                     if (AllToppings[topping].Included && !AllToppings[topping].Default)
@@ -171,7 +185,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// The cheese options for a burger.
         /// </summary>
-        public List<Cheese> CheeseOptions = new(); //like sauce options
+        public List<Cheese> CheeseOptions = new();
 
         /// <summary>
         /// The choice of cheese for this burger.
@@ -201,32 +215,32 @@ namespace DairyBarn.Data
         /// <summary>
         /// The minimum number of patties allowed on burgers.
         /// </summary>
-        protected int _minPatties = 1;
+        protected uint _minPatties = 1;
 
         /// <summary>
         /// The default number of patties on the burger.
         /// </summary>
-        protected int _defaultPatties = 1;
+        protected uint _defaultPatties = 1;
 
         /// <summary>
         /// The maximum number of patties on the burger.
         /// </summary>
-        protected int _maxPatties;
+        protected uint _maxPatties;
 
         /// <summary>
         /// The number of patties on the burger.
         /// </summary>
-        protected int _patties;
+        protected uint _patties;
 
         /// <summary>
         /// The number of patties for the burger.
         /// </summary>
-        public int Patties
+        public uint Patties
         {
             get => _patties;
             set
             {
-                if (value >= _minPatties || value <= _maxPatties)
+                if (value >= _minPatties && value <= _maxPatties)
                 {
                     _patties = value;
                 }
@@ -234,13 +248,18 @@ namespace DairyBarn.Data
         }
 
         /// <summary>
+        /// The default veggie value for the burgers
+        /// </summary>
+        protected bool _defaultVeggie;
+
+        /// <summary>
         /// Whether the burger has veggie patties.
         /// </summary>
-        protected bool _veggie = false;
+        protected bool _veggie;
 
         /// <summary>
         /// If the patties are veggie patties.
         /// </summary>
-        public bool Veggie => _veggie;
+        public abstract bool Veggie { get; set; }
     }
 }

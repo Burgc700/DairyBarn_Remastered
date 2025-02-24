@@ -22,93 +22,53 @@ namespace DairyBarn.Data
         public override string Description { get; } = "Espresso and stream milk customized the way you like it.";
 
         /// <summary>
-        /// Whether this drink contains vanilla.
+        /// If this drink has vanilla in it.
         /// </summary>
-        public bool Vanilla { get; set; } = false;
+        public override bool Vanilla
+        {
+            get => _vanilla;
+            set
+            {
+                _vanilla = value;
+            }
+
+        }
 
         /// <summary>
-        /// The price of this drink.
+        /// Whether this drink has cream.
         /// </summary>
-        public override decimal Price
+        public override bool Cream
         {
-            get
+            get => _cream;
+            set
             {
-                decimal cost = 3.49m;
-
-                if (SizeOfCup == CoffeeSize.Grande)
+                if (_cream == false)
                 {
-                    cost += .75m;
+                    _cream = value;
                 }
-                if (SizeOfCup == CoffeeSize.Venti)
+                if (_cream == true)
                 {
-                    cost += 1.25m;
+                    _cream = false;
                 }
-                if (Vanilla == true)
-                {
-                    cost += .24m;
-                }
-
-                return cost;
             }
         }
 
         /// <summary>
-        /// The total number of calories in this drink.
+        /// Whether this drink has sugar
         /// </summary>
-        public override uint Calories
+        public override bool Sugar
         {
-            get
+            get => _sugar;
+            set
             {
-                uint cals = 150;
-
-                if (SizeOfCup == CoffeeSize.Grande)
+                if (_sugar == false)
                 {
-                    cals += (uint)(cals * (16 / 12));
+                    _sugar = value;
                 }
-                if (SizeOfCup == CoffeeSize.Venti)
+                if (_sugar == true)
                 {
-                    cals += (uint)(cals * (20 / 12));
+                    _sugar = false;
                 }
-                if (Vanilla == true)
-                {
-                    cals += 80;
-                }
-
-                return cals;
-            }
-        }
-
-        /// <summary>
-        /// Information for the preparation of this drink
-        /// </summary>
-        public override IEnumerable<string> PreparationInformation
-        {
-            get
-            {
-                List<string> instructions = new();
-
-                if (Iced == true)
-                {
-                    instructions.Add("Iced.");
-                }
-                if (Decaf == true)
-                {
-                    instructions.Add("Decaf.");
-                }
-                if (Vanilla == true)
-                {
-                    instructions.Add("Add Vanilla.");
-                }
-                if (SizeOfCup == CoffeeSize.Grande)
-                {
-                    instructions.Add("Grande");
-                }
-                if (SizeOfCup == CoffeeSize.Venti)
-                {
-                    instructions.Add("Venti");
-                }
-
-                return instructions;
             }
         }
 
@@ -117,6 +77,11 @@ namespace DairyBarn.Data
             _sizeOfCup = CoffeeSize.Tall;
             Decaf = false;
             Iced = false;
+            _vanilla = false;
+            _sugar = false;
+            _cream = false;
+            _startingCost = 3.49m;
+            _startingCals = 150;
         }
     }
 }

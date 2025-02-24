@@ -62,7 +62,7 @@ namespace DairyBarn.Data
                 }
                 if (SauceChoice == IceCreamSauce.StrawberrySauce)
                 {
-                    cals += 80;
+                    cals += 40;
                 }
                 if (SauceChoice == IceCreamSauce.CrushedPineapple)
                 {
@@ -132,7 +132,7 @@ namespace DairyBarn.Data
                 }
                 if (MixInChoice == IceCreamMixIn.CookieDough)
                 {
-                    instructions.Add("Add Cookies Dough.");
+                    instructions.Add("Add Cookie Dough.");
                 }
 
                 return instructions;
@@ -142,6 +142,7 @@ namespace DairyBarn.Data
         public WinterSwirl()
         {
             _defaultScoops = 2;
+            _minScoops = 2;
             _maxScoops = 2;
             _scoops = _defaultScoops;
             _sauceChoice = IceCreamSauce.ChocolateSauce;
@@ -149,7 +150,7 @@ namespace DairyBarn.Data
             SauceOptions.Add(_defaultChoice);
             SauceOptions.Add(IceCreamSauce.None);
             SauceOptions.Add(IceCreamSauce.StrawberrySauce);
-            SauceOptions.Add(IceCreamSauce.ChocolateSauce);
+            SauceOptions.Add(IceCreamSauce.HotFudge);
             SauceOptions.Add(IceCreamSauce.Caramel);
             SauceOptions.Add(IceCreamSauce.CrushedPineapple);
         }

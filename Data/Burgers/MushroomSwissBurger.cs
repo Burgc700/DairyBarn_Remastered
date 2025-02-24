@@ -21,12 +21,27 @@ namespace DairyBarn.Data
         /// </summary>
         public override string Description { get; } = "A burger with grilled onions, mushroom, and Swiss cheese on top of a toasted bun";
 
+        /// <summary>
+        /// If the patties are veggie patties.
+        /// </summary>
+        public override bool Veggie
+        {
+            get => _veggie;
+            set
+            {
+                _veggie = value;
+
+            }
+        }
+
 
         public MushroomSwissBurger()
         {
-            _startingCals = 695;
+            _startingCals = 150;
             _startingPrice = 6.99m;
             _maxPatties = 2;
+            _patties = 1;
+            _veggie = false;
             _defaultCheese = Cheese.Swiss;
             _cheeseChoice = Cheese.Swiss;
             CheeseOptions.Add(_defaultCheese);

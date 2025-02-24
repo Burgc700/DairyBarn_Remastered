@@ -67,31 +67,31 @@ namespace DairyBarn.Data
         {
             _sauceInfo = new Dictionary<IceCreamSauce, IngredientInfo>();
             _sauceInfo[IceCreamSauce.ChocolateSauce] = new IngredientInfo("Chocolate Sauce", 80, 0.00m);
-            _sauceInfo[IceCreamSauce.Caramel] = new IngredientInfo("Carmel", 130, 0.00m);
+            _sauceInfo[IceCreamSauce.Caramel] = new IngredientInfo("Caramel", 130, 0.00m);
             _sauceInfo[IceCreamSauce.HotFudge] = new IngredientInfo("Hot Fudge", 130, 0.00m);
             _sauceInfo[IceCreamSauce.CrushedPineapple] = new IngredientInfo("Crushed Pineapple", 50, 0.00m);
-            _sauceInfo[IceCreamSauce.StrawberrySauce] = new IngredientInfo("Strawberry Sauce", 50, 0.00m);
+            _sauceInfo[IceCreamSauce.StrawberrySauce] = new IngredientInfo("Strawberry Sauce", 40, 0.00m);
             _sauceInfo[IceCreamSauce.None] = new IngredientInfo("None", 0, 0.00m);
 
             _cheeseInfo = new Dictionary<Cheese, IngredientInfo>();
-            _cheeseInfo[Cheese.American] = new IngredientInfo("American Cheese", 80, 0.00m);
-            _cheeseInfo[Cheese.Swiss] = new IngredientInfo("Swiss Cheese", 85, 0.00m);
-            _cheeseInfo[Cheese.Cheddar] = new IngredientInfo("Cheddar Cheese", 90, 0.00m);
+            _cheeseInfo[Cheese.American] = new IngredientInfo("American Cheese", 80, 0.00m); //
+            _cheeseInfo[Cheese.Swiss] = new IngredientInfo("Swiss Cheese", 85, 0.00m);       //
+            _cheeseInfo[Cheese.Cheddar] = new IngredientInfo("Cheddar Cheese", 90, 0.00m);   //
             _cheeseInfo[Cheese.PepperJack] = new IngredientInfo("Pepper Jack", 85, 0.00m);
             _cheeseInfo[Cheese.None] = new IngredientInfo("None", 0, 0.00m);
 
             _burgerInfo = new Dictionary<BurgerTopping, IngredientInfo>();
-            _burgerInfo[BurgerTopping.Ketchup] = new IngredientInfo("Ketchup", 20, 0.00m);
-            _burgerInfo[BurgerTopping.Mustard] = new IngredientInfo("Mustard", 5, 0.00m);
-            _burgerInfo[BurgerTopping.Onions] = new IngredientInfo("Onions", 5, 0.00m);
-            _burgerInfo[BurgerTopping.Pickles] = new IngredientInfo("Pickles", 5, 0.00m);
-            _burgerInfo[BurgerTopping.Lettuce] = new IngredientInfo("Lettuce", 5, 0.25m);
-            _burgerInfo[BurgerTopping.Bacon] = new IngredientInfo("Bacon", 75, 1.00m);
-            _burgerInfo[BurgerTopping.Tomato] = new IngredientInfo("Tomato", 5, 0.25m);
-            _burgerInfo[BurgerTopping.GrilledOnions] = new IngredientInfo("Grilled Onions", 50, 1.00m);
-            _burgerInfo[BurgerTopping.GrilledMushrooms] = new IngredientInfo("Grilled Mushrooms", 60, 1.00m);
-            _burgerInfo[BurgerTopping.BBQSauce] = new IngredientInfo("BBQ Sauce", 40, 0.25m);
-            _burgerInfo[BurgerTopping.CrispyFriedOnions] = new IngredientInfo("Crispy Fried Onions", 70, 0.50m);
+            _burgerInfo[BurgerTopping.Ketchup] = new IngredientInfo("Ketchup", 20, 0.00m); //
+            _burgerInfo[BurgerTopping.Mustard] = new IngredientInfo("Mustard", 5, 0.00m); //
+            _burgerInfo[BurgerTopping.Onions] = new IngredientInfo("Onions", 5, 0.00m);   //
+            _burgerInfo[BurgerTopping.Pickles] = new IngredientInfo("Pickles", 5, 0.00m); //
+            _burgerInfo[BurgerTopping.Lettuce] = new IngredientInfo("Lettuce", 5, 0.25m);  //
+            _burgerInfo[BurgerTopping.Bacon] = new IngredientInfo("Bacon", 75, 1.00m);     //
+            _burgerInfo[BurgerTopping.Tomato] = new IngredientInfo("Tomato", 5, 0.25m);   //
+            _burgerInfo[BurgerTopping.GrilledOnions] = new IngredientInfo("Grilled Onions", 50, 1.00m);        //
+            _burgerInfo[BurgerTopping.GrilledMushrooms] = new IngredientInfo("Grilled Mushrooms", 60, 1.00m);  //
+            _burgerInfo[BurgerTopping.BBQSauce] = new IngredientInfo("BBQ Sauce", 40, 0.25m);                  //
+            _burgerInfo[BurgerTopping.CrispyFriedOnions] = new IngredientInfo("Crispy Fried Onions", 70, 0.50m); //
             _burgerInfo[BurgerTopping.ChipotleMayo] = new IngredientInfo("Chipotle Mayo", 90, 0.25m);
         }
 

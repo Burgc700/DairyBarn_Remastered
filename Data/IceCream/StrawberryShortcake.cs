@@ -117,12 +117,13 @@ namespace DairyBarn.Data
         public StrawBerryShortcake()
         {
             _defaultScoops = 2;
+            _minScoops = 2;
             _maxScoops = 2;
             _scoops = _defaultScoops;
             _sauceChoice = IceCreamSauce.StrawberrySauce;
             _defaultChoice = IceCreamSauce.StrawberrySauce;
             SauceOptions.Add(_defaultChoice);
-            SauceOptions.Add(IceCreamSauce.StrawberrySauce);
+            SauceOptions.Add(IceCreamSauce.None);
         }
     }
 }

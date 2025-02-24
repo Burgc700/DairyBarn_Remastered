@@ -22,13 +22,28 @@ namespace DairyBarn.Data
         public override string Description { get; } = "A burger with smoky barbecue sauce, cheddar cheese, bacon, and crispy fried onions on top of a toasted bun";
 
         /// <summary>
+        /// If the patties are veggie patties.
+        /// </summary>
+        public override bool Veggie
+        {
+            get => _veggie;
+            set
+            {
+                _veggie = value;
+
+            }
+        }
+
+        /// <summary>
         /// The constructor
         /// </summary>
         public BBQBaconCheeseburger()
         {
-            _startingCals = 775;
+            _startingCals = 150;
             _startingPrice = 7.29m;
             _maxPatties = 2;
+            _patties = 1;
+            _veggie = false;
             _defaultCheese = Cheese.Cheddar;
             _cheeseChoice = Cheese.Cheddar;
             CheeseOptions.Add(_defaultCheese);

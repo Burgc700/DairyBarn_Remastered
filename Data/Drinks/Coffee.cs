@@ -12,7 +12,7 @@ namespace DairyBarn.Data
     public class Coffee : Drink
     {
         /// <summary>
-        /// THe name of the Coffee instance
+        /// The name of the Coffee instance
         /// </summary>
         public override string Name { get; } = "Coffee";
 
@@ -22,105 +22,47 @@ namespace DairyBarn.Data
         public override string Description { get; } = "Freshly brewed coffee with decaf and iced options available";
 
         /// <summary>
-        /// Whether this coffee contains cream
-        /// </summary>
-        public bool Cream { get; set; } = false;
-
-        /// <summary>
         /// Whether this coffee contains sugar
         /// </summary>
-        public bool Sugar { get; set; } = false;
-
-        /// <summary>
-        /// The price of this coffee
-        /// </summary>
-        public override decimal Price
+        public override bool Sugar 
         {
-            get
+            get => _sugar;
+            set
             {
-                decimal cost = 2.49m;
-                if (SizeOfCup == CoffeeSize.Grande)
-                {
-                    cost += .75m;
-                }
-                if (SizeOfCup == CoffeeSize.Venti)
-                {
-                    cost += 1.25m;
-                }
-                return cost;
+                _sugar = value;
             }
         }
 
         /// <summary>
-        /// The total number of calories in this coffee
+        /// Whether this drink has cream.
         /// </summary>
-        public override uint Calories
+        public override bool Cream
         {
-            get
+            get => _cream;
+            set
             {
-                uint cals = 5;
-
-                if (Decaf == true)
-                {
-                    cals -= 3;
-                }
-                if (Cream == true)
-                {
-                    cals += 40;
-                }
-                if (Sugar == true)
-                {
-                    cals += 25;
-                }
-                if (SizeOfCup == CoffeeSize.Grande)
-                {
-                    cals += (uint)(cals * (16 / 12));
-                }
-                if (SizeOfCup == CoffeeSize.Venti)
-                {
-                    cals += (uint)(cals * (20 / 12));
-                }
-
-                return cals;
+                _cream = value;
             }
         }
 
         /// <summary>
-        /// Information for the preparation of this coffee
+        /// If this drink has vanilla in it.
         /// </summary>
-        public override IEnumerable<string> PreparationInformation
+        public override bool Vanilla
         {
-            get
+            get => _vanilla;
+            set
             {
-                List<string> instructions = new();
-
-                if (Iced == true)
+                if(_vanilla == false)
                 {
-                    instructions.Add("Iced");
+                    _vanilla = value;
                 }
-                if (Decaf == true)
+                if(_vanilla == true)
                 {
-                    instructions.Add("Decaf");
+                    _vanilla = false;
                 }
-                if (Cream == true)
-                {
-                    instructions.Add("Add Cream");
-                }
-                if (Sugar == true)
-                {
-                    instructions.Add("Add Sugar");
-                }
-                if (SizeOfCup == CoffeeSize.Grande)
-                {
-                    instructions.Add("Grande");
-                }
-                if (SizeOfCup == CoffeeSize.Venti)
-                {
-                    instructions.Add("Venti");
-                }
-
-                return instructions;
             }
+
         }
 
         public Coffee()
@@ -128,6 +70,11 @@ namespace DairyBarn.Data
             _sizeOfCup = CoffeeSize.Tall;
             Decaf = false;
             Iced = false;
+            _vanilla = false;
+            _cream = false;
+            _sugar = false;
+            _startingCost = 2.49m;
+            _startingCals = 5;
         }
 
     }

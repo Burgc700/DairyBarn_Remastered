@@ -114,8 +114,9 @@ namespace DairyBarn.Data
         public BrownieSundae()
         {
             _defaultScoops = 2;
+            _minScoops = 2;
             _maxScoops = 2;
-            _scoops = _defaultScoops;
+            _scoops = 2;
             _sauceChoice = IceCreamSauce.HotFudge;
             _defaultChoice = IceCreamSauce.HotFudge;
             SauceOptions.Add(_defaultChoice);

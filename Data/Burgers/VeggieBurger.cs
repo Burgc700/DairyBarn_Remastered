@@ -22,13 +22,34 @@ namespace DairyBarn.Data
         public override string Description { get; } = "A vegetarian patty with pepper jack cheese, Chipotle mayo, lettuce, and tomato on top of a toasted bun";
 
         /// <summary>
+        /// Determines if the patty is a veggie patty
+        /// </summary>
+        public override bool Veggie 
+        {
+            get => _veggie;
+            set
+            {
+                if(_veggie == true)
+                {
+                    _veggie = value;
+                }
+                if (_veggie == false)
+                {
+                    _veggie = true;
+                }    
+            }
+        }
+
+        /// <summary>
         /// The constructor
         /// </summary>
         public VeggieBurger()
         {
-            _startingCals = 585;
+            _startingCals = 150;
             _startingPrice = 6.99m;
             _maxPatties = 2;
+            _patties = 1;
+            _defaultVeggie = true;
             _veggie = true;
             _defaultCheese = Cheese.PepperJack;
             _cheeseChoice = Cheese.PepperJack;

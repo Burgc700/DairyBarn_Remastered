@@ -22,74 +22,59 @@ namespace DairyBarn.Data
         public override string Description { get; } = "Chocolate, espresso, and steamed milk with decaf and ice options available.";
 
         /// <summary>
-        /// The price of this drink.
+        /// If this drink has vanilla in it.
         /// </summary>
-        public override decimal Price
+        public override bool Vanilla
         {
-            get
+            get => _vanilla;
+            set
             {
-                decimal cost = 3.99m;
-                if (SizeOfCup == CoffeeSize.Grande)
+                if (_vanilla == false)
                 {
-                    cost += .75m;
+                    _vanilla = value;
                 }
-                else if (SizeOfCup == CoffeeSize.Venti)
+                if (_vanilla == true)
                 {
-                    cost += 1.25m;
+                    _vanilla = false;
                 }
-
-                return cost;
             }
         }
 
         /// <summary>
-        /// The total number of calories in this drink.
+        /// Whether this drink has cream.
         /// </summary>
-        public override uint Calories
+        public override bool Cream
         {
-            get
+            get => _cream;
+            set
             {
-                uint cals = 200;
-                if (SizeOfCup == CoffeeSize.Grande)
+                if (_cream == false)
                 {
-                    cals += (uint)(cals * (16 / 12));
+                    _cream = value;
                 }
-                if (SizeOfCup == CoffeeSize.Venti)
+                if (_cream == true)
                 {
-                    cals += (uint)(cals * (20 / 12));
+                    _cream = false;
                 }
-
-                return cals;
             }
         }
 
         /// <summary>
-        /// Information for the preparation of this drink.
+        /// Whether this drink has sugar
         /// </summary>
-        public override IEnumerable<string> PreparationInformation
+        public override bool Sugar
         {
-            get
+            get => _sugar;
+            set
             {
-                List<string> instructions = new();
-
-                if (Iced == true)
+                if (_sugar == false)
                 {
-                    instructions.Add("Iced.");
+                    _sugar = value;
                 }
-                if (Decaf == true)
+                if (_sugar == true)
                 {
-                    instructions.Add("Decaf.");
+                    _sugar = false;
                 }
-                if (SizeOfCup == CoffeeSize.Grande)
-                {
-                    instructions.Add("Grande.");
-                }
-                if (SizeOfCup == CoffeeSize.Venti)
-                {
-                    instructions.Add("Venti.");
-                }
-
-                return instructions;
             }
         }
 
@@ -98,6 +83,11 @@ namespace DairyBarn.Data
             _sizeOfCup = CoffeeSize.Tall;
             Iced = false;
             Decaf = false;
+            _vanilla = false;
+            _sugar = false;
+            _cream = false;
+            _startingCost = 3.99m;
+            _startingCals = 200;
         }
     }
 }

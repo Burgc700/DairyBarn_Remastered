@@ -57,11 +57,6 @@ namespace DairyBarn.Data
                 {
                     cost += 1.50m;
                 }
-                if (Scoops == 2)
-                {
-                    cost += .50m;
-                    cost += .50m;
-                }
 
                 return cost;
             }
@@ -80,13 +75,17 @@ namespace DairyBarn.Data
                 {
                     cals -= 25;
                 }
-                if (Dipped == true)
+                if (Dipped == true && Scoops == 1)
                 {
                     cals += 100;
                 }
+                if(Dipped == false && Scoops == 2)
+                {
+                    cals += 220;
+                }
                 if (Scoops == 2 && Dipped == true)
                 {
-                    cals += 100;
+                    cals += 220;
                     cals += 100;
                 }
                 if (TypeOfCone == Cone.Waffle)
@@ -111,7 +110,7 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (TypeOfCone != Cone.Cake)
+                if (TypeOfCone != Cone.Cake && TypeOfCone == Cone.None)
                 {
                     instructions.Add("In Cup");
                 }
@@ -121,7 +120,7 @@ namespace DairyBarn.Data
                 }
                 if (Scoops == 2)
                 {
-                    instructions.Add("Double");
+                    instructions.Add("2 Scoops");
                 }
                 if (TypeOfCone == Cone.ChocolateWaffle)
                 {
@@ -133,8 +132,20 @@ namespace DairyBarn.Data
                 }
 
                 return instructions;
-            }
+            }    
         }
+
+        /// <summary>
+        /// Default Cone Option
+        /// </summary>
+        protected Cone _coneOption;
+
+        protected Cone _defualtCone = Cone.Cake;
+
+        /// <summary>
+        /// List of valid cones
+        /// </summary>
+        public List<Cone> ConeOptions = new();
 
         /// <summary>
         /// The constructor.
@@ -142,7 +153,14 @@ namespace DairyBarn.Data
         public IceCreamCone()
         {
             _defaultScoops = 1;
+            _minScoops = 1;
             _maxScoops = 2;
+            _scoops = _defaultScoops;
+            _coneOption = _defualtCone;
+            ConeOptions.Add(_defualtCone);
+            ConeOptions.Add(Cone.Waffle);
+            ConeOptions.Add(Cone.ChocolateWaffle);
+            ConeOptions.Add(Cone.None);
         }
     }
 }
