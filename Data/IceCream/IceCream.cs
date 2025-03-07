@@ -100,5 +100,14 @@ namespace DairyBarn.Data
         /// The different sauce options allowed on this ice cream.
         /// </summary>
         public List<IceCreamSauce> SauceOptions = new();
+
+        /// <summary>
+        /// Gets the name of the ice cream.
+        /// </summary>
+        /// <returns>The name of the ice cream.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

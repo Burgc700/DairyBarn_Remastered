@@ -63,7 +63,7 @@ namespace DairyBarn.DataTests
         {
             WinterSwirl s = new();
 
-            Assert.Equal(440u, s.Calories);
+            Assert.Equal(680u, s.Calories);
         }
 
         /// <summary>
@@ -99,16 +99,16 @@ namespace DairyBarn.DataTests
         /// <param name="mixIn">The mix in we are adding.</param>
         /// <param name="expected">The expected calories.</param>
         [Theory]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, 440)]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, 440 - 160 + 90)]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, 440 - 160 + 90)]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, 440 - 160 + 120)]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, 440 - 80 + 130 - 160 + 120)]
-        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, 440 - 80 - 160 + 40 + 90)]
-        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, 440 - 80 - 160 + 130 + 90)]
-        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, 440 - 80 - 160 + 50 + 120)]
-        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, 440 - 80)]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.CookieDough, 440 -80-160+90+130)]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, 680)]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, 220 * 2 + 90 + 80)]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, 220 * 2 + 90 + 80)]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, 220 * 2 + 120 + 80)]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, 220 * 2 + 130 + 120)]
+        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, 220 * 2 + 40 + 90)]
+        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, 220 * 2 + 130 + 90)]
+        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, 220 * 2 + 50 + 120)]
+        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, 220 * 2 + 160)]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.CookieDough, 220*2+90+130)]
         public void CaloriesCheckingForDifferentIngredientTest(IceCreamSauce sauce, IceCreamMixIn mixIn, uint expected)
         {
             WinterSwirl s = new();
@@ -126,15 +126,15 @@ namespace DairyBarn.DataTests
         /// <param name="mixIn">The mix in we are adding.</param>
         /// <param name="expected">The expected information.</param>
         [Theory]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { "Chocolate Sauce", "Oreos"})]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Hold Oreos", "Add Reeses" })]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Hold Oreos", "Add Cookie Dough" })]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "Hold Oreos", "Add M&M's "})]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Hold Chocolate Sauce", "Add Caramel", "Hold Oreos", "Add M&M's" })]
-        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Hold Chocolate Sauce", "Add Strawberry Sauce", "Hold Oreos", "Add Cookie Dough" })]
-        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Hold Chocolate Sauce", "Add Hot Fudge", "Hold Oreos", "Add Reeses" })]
-        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] {"Hold Chocolate Sauce", "Add Crushed Pineapple", "Hold Oreos", "Add M&M's" })]
-        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Hold Chocolate Sauce" })]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's" })]
+        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough" })]
+        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses" })]
+        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's" })]
+        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Oreos" })]
         public void PrepInfoCheckingForDifferentIngredientTest(IceCreamSauce sauce, IceCreamMixIn mixIn, string[] expected)
         {
             WinterSwirl s = new();
@@ -161,7 +161,7 @@ namespace DairyBarn.DataTests
         [InlineData(3, 2)]
         [InlineData(0, 2)]
         [InlineData(50, 2)]
-        public void CheckBoundsOnScoops(uint scoops, uint expected)
+        public void CheckBoundsOnScoopsTest(uint scoops, uint expected)
         {
             WinterSwirl s = new() { Scoops = scoops };
 
@@ -197,7 +197,7 @@ namespace DairyBarn.DataTests
         [InlineData(IceCreamMixIn.MandMs, IceCreamMixIn.MandMs)]
         [InlineData(IceCreamMixIn.CookieDough, IceCreamMixIn.CookieDough)]
         [InlineData(IceCreamMixIn.Reeses, IceCreamMixIn.Reeses)]
-        public void CheckMixInOptions(IceCreamMixIn mixIn, IceCreamMixIn expected)
+        public void CheckMixInOptionsTest(IceCreamMixIn mixIn, IceCreamMixIn expected)
         {
             WinterSwirl s = new() { MixInChoice = mixIn };
 
@@ -208,12 +208,23 @@ namespace DairyBarn.DataTests
         /// Makes sure this sundae is part of IMenuItem and ice cream.
         /// </summary>
         [Fact]
-        public void CheckIsAnIMenuItem()
+        public void CheckIsAnIMenuItemTest()
         {
             WinterSwirl s = new();
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            WinterSwirl s = new();
+
+            Assert.Equal("Winter Swirl", s.Name);
         }
     }
 }

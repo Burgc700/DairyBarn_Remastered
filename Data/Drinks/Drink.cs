@@ -198,5 +198,14 @@ namespace DairyBarn.Data
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the name of the drink.
+        /// </summary>
+        /// <returns>The name of the drink.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

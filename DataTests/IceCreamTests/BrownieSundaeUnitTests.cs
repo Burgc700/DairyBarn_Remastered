@@ -66,7 +66,7 @@ namespace DairyBarn.DataTests
         {
             BrownieSundae s = new();
 
-            Assert.Equal(910u, s.Calories);
+            Assert.Equal(660u, s.Calories);
         }
 
         /// <summary>
@@ -108,12 +108,12 @@ namespace DairyBarn.DataTests
         /// <param name="sauce">The type of sauce on this sundae.</param>
         /// <param name="expected">The expected calories.</param>
         [Theory]
-        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, 910)]
-        [InlineData(true, true, false, 2, IceCreamSauce.None, 910 - 130)]
-        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, 910 + 50)]
-        [InlineData(false, true, true, 2, IceCreamSauce.None, 910 - 80 - 130 + 50)]
-        [InlineData(true, false, true, 3, IceCreamSauce.None, 910 - 130 - 10 + 50)]
-        [InlineData(false, false, true, 2, IceCreamSauce.HotFudge, 910 - 80 - 10 + 50)]
+        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, 220 * 2 + 130 + 80 + 10)]
+        [InlineData(true, true, false, 2, IceCreamSauce.None, 220 * 2 + 80 + 10)]
+        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, 220 * 2 + 130 + 80 + 10 + 50)]
+        [InlineData(false, true, true, 2, IceCreamSauce.None, 220 * 2 + 50 + 10)]
+        [InlineData(true, false, true, 3, IceCreamSauce.None, 220 * 2 + 50 + 80)]
+        [InlineData(false, false, true, 2, IceCreamSauce.HotFudge, 220 * 2 + 130 + 50)]
         public void CaloriesCheckingForDifferentIngredientTest(bool whippedCream, bool cherry, bool peanuts, uint scoops, IceCreamSauce sauce, uint expected) //if scoops is more than 1 do they get += another of the sauce cals?
         {
             BrownieSundae s = new();
@@ -137,13 +137,13 @@ namespace DairyBarn.DataTests
         /// <param name="sauce">The type of sauce on this sundae.</param>
         /// <param name="expected">The expected information.</param>
         [Theory]
-        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, new string[] { })]
-        [InlineData(true, true, false, 2, IceCreamSauce.None, new string[] { "Hold Hot Fudge" })]
-        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, new string[] { "Add Peanuts" })]
-        [InlineData(false, true, true, 2, IceCreamSauce.None, new string[] { "Hold Whipped Cream", "Add Peanuts", "Hold Hot Fudge" })]
-        [InlineData(true, false, true, 3, IceCreamSauce.None, new string[] { "Hold Cherry", "Add Peanuts", "Hold Hot Fudge" })]
-        [InlineData(false, false, true, 2, IceCreamSauce.None, new string[] { "Hold whipped Cream", "Hold Cherry", "Add Peanuts", "Hold Hot Fudge" })]
-        public void PrepInfoCheckingForDifferentIngrediantTest(bool whippedCream, bool cherry, bool peanuts, uint scoops, IceCreamSauce sauce, string[] expected) //if scoops is more than 1 do they get += another of the sauce cals?
+        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, new string[] { "Whipped cream", "Cherry", "Hot Fudge"})]
+        [InlineData(true, true, false, 2, IceCreamSauce.None, new string[] { "Whipped cream", "Cherry" })]
+        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, new string[] { "Peanuts", "Whipped Cream", "Cherry", "Hot Fudge" })]
+        [InlineData(false, true, true, 2, IceCreamSauce.None, new string[] { "Peanuts", "Cherry" })]
+        [InlineData(true, false, true, 3, IceCreamSauce.None, new string[] { "Peanuts", "Whipped Cream" })]
+        [InlineData(false, false, true, 2, IceCreamSauce.None, new string[] { "Add Peanuts" })]
+        public void PrepInfoCheckingForDifferentIngredientTest(bool whippedCream, bool cherry, bool peanuts, uint scoops, IceCreamSauce sauce, string[] expected) //if scoops is more than 1 do they get += another of the sauce cals?
         {
             BrownieSundae s = new();
 
@@ -172,7 +172,7 @@ namespace DairyBarn.DataTests
         [InlineData(3, 2)]
         [InlineData(0, 2)]
         [InlineData(50, 2)]
-        public void CheckBoundsOnScoops(uint scoops, uint expected)
+        public void CheckBoundsOnScoopsTest(uint scoops, uint expected)
         {
             BrownieSundae s = new() { Scoops = scoops };
 
@@ -203,7 +203,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckPeanutOptions(bool peanut, bool expected)
+        public void CheckPeanutOptionsTest(bool peanut, bool expected)
         {
             BrownieSundae s = new() { Peanuts = peanut };
 
@@ -218,7 +218,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckWhippedCreamOptions(bool whippedCream, bool expected)
+        public void CheckWhippedCreamOptionsTest(bool whippedCream, bool expected)
         {
             BrownieSundae s = new() { WhippedCream = whippedCream };
 
@@ -233,7 +233,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckCherryOptions(bool cherry, bool expected)
+        public void CheckCherryOptionsTest(bool cherry, bool expected)
         {
             BrownieSundae s = new() { Cherry = cherry };
 
@@ -244,12 +244,23 @@ namespace DairyBarn.DataTests
         /// Checks this sundae is part of IMenuItem and is a IceCream.
         /// </summary>
         [Fact]
-        public void CheckIsAnIMenuItem()
+        public void CheckIsAnIMenuItemTest()
         {
             BrownieSundae s = new();
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            BrownieSundae s = new();
+
+            Assert.Equal("Brownie Sundae", s.Name);
         }
     }
 }

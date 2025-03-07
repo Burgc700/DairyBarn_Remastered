@@ -174,7 +174,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnDecaf(bool decaf, bool expected)
+        public void CheckBoundsOnDecafTest(bool decaf, bool expected)
         {
             Latte d = new() { Decaf = decaf };
 
@@ -189,7 +189,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnIced(bool iced, bool expected)
+        public void CheckBoundsOnIcedTest(bool iced, bool expected)
         {
             Latte d = new() { Iced = iced };
 
@@ -204,7 +204,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnVanilla(bool vanilla, bool expected)
+        public void CheckBoundsOnVanillaTest(bool vanilla, bool expected)
         {
             Latte d = new() { Vanilla = vanilla };
 
@@ -219,7 +219,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, false)]
         [InlineData(false, false)]
-        public void CheckBoundsOnCream(bool cream, bool expected)
+        public void CheckBoundsOnCreamTest(bool cream, bool expected)
         {
             Latte d = new() { Cream = cream };
 
@@ -234,7 +234,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, false)]
         [InlineData(false, false)]
-        public void CheckBoundsOnSugar(bool sugar, bool expected)
+        public void CheckBoundsOnSugarTest(bool sugar, bool expected)
         {
             Latte d = new() { Sugar = sugar };
 
@@ -245,12 +245,23 @@ namespace DairyBarn.DataTests
         /// Tests to make sure the drink is an IMenuItem and a drink.
         /// </summary>
         [Fact]
-        public void IsAnIMenuItem()
+        public void IsAnIMenuItemTest()
         {
             Latte d = new();
 
             Assert.IsAssignableFrom<IMenuItem>(d);
             Assert.IsAssignableFrom<Drink>(d);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            Latte d = new();
+
+            Assert.Equal("Latte", d.Name);
         }
     }
 }

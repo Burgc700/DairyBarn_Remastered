@@ -65,5 +65,14 @@ namespace DairyBarn.Data
                 return instructions;
             }
         }
+
+        /// <summary>
+        /// Finds the name of the items.
+        /// </summary>
+        /// <returns>The name of the items.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

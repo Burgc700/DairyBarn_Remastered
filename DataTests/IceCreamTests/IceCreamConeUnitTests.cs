@@ -27,7 +27,7 @@ namespace DairyBarn.DataTests
         /// The default value for the dipped property.
         /// </summary>
         [Fact]
-        public void DefaultDippedOption()
+        public void DefaultDippedOptionTest()
         {
             IceCreamCone s = new();
 
@@ -38,7 +38,7 @@ namespace DairyBarn.DataTests
         /// What the default cone is.
         /// </summary>
         [Fact]
-        public void DefaultConeOption()
+        public void DefaultConeOptionTest()
         {
             IceCreamCone s = new();
 
@@ -222,12 +222,23 @@ namespace DairyBarn.DataTests
         /// If the ice cream is part of IMenuItem and is an IceCream.
         /// </summary>
         [Fact]
-        public void CheckIsAnIMenuItem()
+        public void CheckIsAnIMenuItemTest()
         {
             IceCreamCone s = new();
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            IceCreamCone s = new();
+
+            Assert.Equal("Ice Cream Cone", s.Name);
         }
     }
 }

@@ -204,7 +204,7 @@ namespace DairyBarn.DataTests
         [InlineData(2, 2)]
         [InlineData(3, 1)]
         [InlineData(50, 1)]
-        public void CheckBoundsOnPatties(uint patties, uint expected)
+        public void CheckBoundsOnPattiesTest(uint patties, uint expected)
         {
             BBQBaconCheeseburger b = new() { Patties = patties };
 
@@ -220,7 +220,7 @@ namespace DairyBarn.DataTests
         [InlineData(Cheese.Cheddar, Cheese.Cheddar)]
         [InlineData(Cheese.None, Cheese.None)]
         [InlineData(Cheese.American, Cheese.Cheddar)]
-        public void CheckBoundsOnCheese(Cheese cheese, Cheese expected)
+        public void CheckBoundsOnCheeseTest(Cheese cheese, Cheese expected)
         {
             BBQBaconCheeseburger b = new();
 
@@ -233,12 +233,23 @@ namespace DairyBarn.DataTests
         /// Tests to make sure this burger is part of IMenuItem.
         /// </summary>
         [Fact]
-        public void IsAnIMenuItem()
+        public void IsAnIMenuItemTest()
         {
             BBQBaconCheeseburger b = new();
 
             Assert.IsAssignableFrom<IMenuItem>(b);
             Assert.IsAssignableFrom<Burger>(b);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindsNameTest()
+        {
+            BBQBaconCheeseburger b = new();
+
+            Assert.Equal("BBQ Bacon Cheeseburger", b.Name);
         }
     }
 }

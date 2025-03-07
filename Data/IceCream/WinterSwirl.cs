@@ -46,11 +46,11 @@ namespace DairyBarn.Data
         {
             get
             {
-                uint cals = 440;
+                uint cals = 220 * Scoops;
 
-                if (SauceChoice != IceCreamSauce.ChocolateSauce)
+                if (SauceChoice == IceCreamSauce.ChocolateSauce)
                 {
-                    cals -= 80;
+                    cals += 80;
                 }
                 if (SauceChoice == IceCreamSauce.HotFudge)
                 {
@@ -80,9 +80,9 @@ namespace DairyBarn.Data
                 {
                     cals += 90;
                 }
-                if (MixInChoice != IceCreamMixIn.Oreos)
+                if (MixInChoice == IceCreamMixIn.Oreos)
                 {
-                    cals -= 160;
+                    cals += 160;
                 }
 
                 return cals;
@@ -98,41 +98,41 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (SauceChoice != IceCreamSauce.ChocolateSauce)
+                if (SauceChoice == IceCreamSauce.ChocolateSauce)
                 {
-                    instructions.Add("Hold Chocolate Sauce.");
+                    instructions.Add("Chocolate Sauce");
                 }
                 if (SauceChoice == IceCreamSauce.HotFudge)
                 {
-                    instructions.Add("Add Hot Fudge.");
+                    instructions.Add("Hot Fudge");
                 }
                 if (SauceChoice == IceCreamSauce.StrawberrySauce)
                 {
-                    instructions.Add("Add Strawberry Sauce.");
+                    instructions.Add("Strawberry Sauce");
                 }
                 if (SauceChoice == IceCreamSauce.Caramel)
                 {
-                    instructions.Add("Add Caramel.");
+                    instructions.Add("Caramel");
                 }
                 if (SauceChoice == IceCreamSauce.CrushedPineapple)
                 {
-                    instructions.Add("Add Crushed Pineapple");
+                    instructions.Add("Crushed Pineapple");
                 }
-                if (MixInChoice != IceCreamMixIn.Oreos)
+                if (MixInChoice == IceCreamMixIn.Oreos)
                 {
-                    instructions.Add("Hold Oreos.");
+                    instructions.Add("Oreos");
                 }
                 if (MixInChoice == IceCreamMixIn.Reeses)
                 {
-                    instructions.Add("Add Reeses.");
+                    instructions.Add("Reeses.");
                 }
                 if (MixInChoice == IceCreamMixIn.MandMs)
                 {
-                    instructions.Add("Add M&M's.");
+                    instructions.Add("M&M's.");
                 }
                 if (MixInChoice == IceCreamMixIn.CookieDough)
                 {
-                    instructions.Add("Add Cookie Dough.");
+                    instructions.Add("Cookie Dough");
                 }
 
                 return instructions;

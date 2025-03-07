@@ -12,7 +12,7 @@ namespace DairyBarn.DataTests
     public class VeggieBurgerUnitTests
     {
         /// <summary>
-        /// Tests the defualt patties for this burger.
+        /// Tests the default patties for this burger.
         /// </summary>
         [Fact]
         public void DefaultPattiesTest()
@@ -23,7 +23,7 @@ namespace DairyBarn.DataTests
         }
 
         /// <summary>
-        /// Tests the defualt cheese for this burger.
+        /// Tests the default cheese for this burger.
         /// </summary>
         [Fact]
         public void DefaultCheeseTest()
@@ -83,7 +83,7 @@ namespace DairyBarn.DataTests
         /// Makes sure the default calories are 585.
         /// </summary>
         [Fact]
-        public void DefualtCaloriesTest()
+        public void DefaultCaloriesTest()
         {
             VeggieBurger b = new();
 
@@ -218,7 +218,7 @@ namespace DairyBarn.DataTests
         [InlineData(2, 2)]
         [InlineData(3, 1)]
         [InlineData(50, 1)]
-        public void CheckBoundsOnPatties(uint patties, uint expected)
+        public void CheckBoundsOnPattiesTest(uint patties, uint expected)
         {
             VeggieBurger b = new() { Patties = patties };
 
@@ -234,7 +234,7 @@ namespace DairyBarn.DataTests
         [InlineData(Cheese.PepperJack, Cheese.PepperJack)]
         [InlineData(Cheese.None, Cheese.None)]
         [InlineData(Cheese.Swiss, Cheese.PepperJack)]
-        public void CheckBoundsOnCheese(Cheese cheese, Cheese expected)
+        public void CheckBoundsOnCheeseTest(Cheese cheese, Cheese expected)
         {
             VeggieBurger b = new();
 
@@ -247,12 +247,23 @@ namespace DairyBarn.DataTests
         /// Tests to make sure this burger is part of IMenuItem and a Burger.
         /// </summary>
         [Fact]
-        public void IsAnIMenuItem()
+        public void IsAnIMenuItemTest()
         {
             VeggieBurger b = new();
 
             Assert.IsAssignableFrom<IMenuItem>(b);
             Assert.IsAssignableFrom<Burger>(b);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            VeggieBurger b = new();
+
+            Assert.Equal("Veggie Burger", b.Name);
         }
     }
 }

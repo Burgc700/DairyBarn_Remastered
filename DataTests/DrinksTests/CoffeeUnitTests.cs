@@ -12,7 +12,7 @@ namespace DairyBarn.DataTests
     public class CoffeeUnitTests
     {
         /// <summary>
-        /// Tests the defualt cup size.
+        /// Tests the default cup size.
         /// </summary>
         [Fact]
         public void DefaultCupTest()
@@ -38,7 +38,7 @@ namespace DairyBarn.DataTests
         }
 
         /// <summary>
-        /// Makes sure the defualt price is 2.49.
+        /// Makes sure the default price is 2.49.
         /// </summary>
         [Fact]
         public void DefaultCostTest()
@@ -168,7 +168,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnDecaf(bool decaf, bool expected)
+        public void CheckBoundsOnDecafTest(bool decaf, bool expected)
         {
             Coffee d = new() { Decaf = decaf };
 
@@ -183,7 +183,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnIced(bool iced, bool expected)
+        public void CheckBoundsOnIcedTest(bool iced, bool expected)
         {
             Coffee d = new() { Iced = iced };
 
@@ -198,7 +198,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, false)]
         [InlineData(false, false)]
-        public void CheckBoundsOnVanilla(bool vanilla, bool expected)
+        public void CheckBoundsOnVanillaTest(bool vanilla, bool expected)
         {
             Coffee d = new() { Vanilla = vanilla };
 
@@ -213,7 +213,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnCream(bool cream, bool expected)
+        public void CheckBoundsOnCreamTest(bool cream, bool expected)
         {
             Coffee d = new() { Cream = cream };
 
@@ -228,7 +228,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public void CheckBoundsOnSugar(bool sugar, bool expected)
+        public void CheckBoundsOnSugarTest(bool sugar, bool expected)
         {
             Coffee d = new() { Sugar = sugar };
 
@@ -239,12 +239,23 @@ namespace DairyBarn.DataTests
         /// Tests to make sure the drink is an IMenuItem and a drink.
         /// </summary>
         [Fact]
-        public void IsAnIMenuItem()
+        public void IsAnIMenuItemTest()
         {
             Coffee d = new();
 
             Assert.IsAssignableFrom<IMenuItem>(d);
             Assert.IsAssignableFrom<Drink>(d);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            Coffee d = new();
+
+            Assert.Equal("Coffee", d.Name);
         }
     }
 }

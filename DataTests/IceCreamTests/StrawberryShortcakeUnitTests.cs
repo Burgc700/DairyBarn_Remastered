@@ -174,7 +174,7 @@ namespace DairyBarn.DataTests
         [InlineData(3, 2)]
         [InlineData(0, 2)]
         [InlineData(50, 2)]
-        public void CheckBoundsOnScoops(uint scoops, uint expected)
+        public void CheckBoundsOnScoopsTest(uint scoops, uint expected)
         {
             StrawBerryShortcake s = new() { Scoops = scoops };
 
@@ -205,7 +205,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckPeanutOptions(bool peanut, bool expected)
+        public void CheckPeanutOptionsTest(bool peanut, bool expected)
         {
             BrownieSundae s = new() { Peanuts = peanut };
 
@@ -220,7 +220,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckWhippedCreamOptions(bool whippedCream, bool expected)
+        public void CheckWhippedCreamOptionsTest(bool whippedCream, bool expected)
         {
             StrawBerryShortcake s = new() { WhippedCream = whippedCream };
 
@@ -235,7 +235,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckCherryOptions(bool cherry, bool expected)
+        public void CheckCherryOptionsTest(bool cherry, bool expected)
         {
             StrawBerryShortcake s = new() { Cherry = cherry };
 
@@ -246,12 +246,23 @@ namespace DairyBarn.DataTests
         /// If the sundae is part of IMenuItem and is a ice cream.
         /// </summary>
         [Fact]
-        public void CheckIsAnIMenuItem()
+        public void CheckIsAnIMenuItemTest()
         {
             StrawBerryShortcake s = new();
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            StrawBerryShortcake s = new();
+
+            Assert.Equal("Strawberry Shortcake", s.Name);
         }
     }
 }

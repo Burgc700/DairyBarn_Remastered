@@ -261,5 +261,14 @@ namespace DairyBarn.Data
         /// If the patties are veggie patties.
         /// </summary>
         public abstract bool Veggie { get; set; }
+
+        /// <summary>
+        /// Gets the name of the burger.
+        /// </summary>
+        /// <returns>The name of the burger.</returns>
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

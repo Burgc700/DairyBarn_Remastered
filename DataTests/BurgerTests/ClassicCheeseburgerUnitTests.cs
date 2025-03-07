@@ -197,7 +197,7 @@ namespace DairyBarn.DataTests
         [InlineData(true, true, true, true, true, false, false, true, 2, Cheese.None, new string[] { "Add Bacon", "Add Veggie Patties", "Double", "Hold American Cheese"})]
         [InlineData(false, false, false, false, false, false, false, false, 1, Cheese.None, new string[] { "Hold Ketchup", "Hold Mustard", "Hold Onions", "Hold Pickles", "Hold American Cheese"})]
         [InlineData(true, true, true, true, true, true, true, true, 3, Cheese.None, new string[] { "Add bacon", "Add Lettuce", "Add Tomato", "Veggie", "Triple", "Hold American Cheese"})]
-        public void PrepInfoCheckDiffernetOptionsTest(bool ketchup, bool mustard, bool onions, bool pickles, bool bacon, bool lettuce, bool tomato, bool veggie, uint patties, Cheese cheese, string[] expected)
+        public void PrepInfoCheckDifferentOptionsTest(bool ketchup, bool mustard, bool onions, bool pickles, bool bacon, bool lettuce, bool tomato, bool veggie, uint patties, Cheese cheese, string[] expected)
         {
             ClassicCheeseburger b = new();
 
@@ -234,7 +234,7 @@ namespace DairyBarn.DataTests
         [InlineData(2, 2)]
         [InlineData(3, 3)]
         [InlineData(50, 1)]
-        public void CheckBoundsOnPatties(uint patties, uint expected)
+        public void CheckBoundsOnPattiesTest(uint patties, uint expected)
         {
             ClassicCheeseburger b = new() { Patties = patties };
 
@@ -250,7 +250,7 @@ namespace DairyBarn.DataTests
         [InlineData(Cheese.American, Cheese.American)]
         [InlineData(Cheese.None, Cheese.None)]
         [InlineData(Cheese.Swiss, Cheese.American)]
-        public void CheckBoundsOnCheese(Cheese cheese, Cheese expected)
+        public void CheckBoundsOnCheeseTest(Cheese cheese, Cheese expected)
         {
             ClassicCheeseburger b = new();
 
@@ -263,12 +263,23 @@ namespace DairyBarn.DataTests
         /// Tests to make sure the burger is part of IMenuItem and burger.
         /// </summary>
         [Fact]
-        public void IsAnIMenuItem()
+        public void IsAnIMenuItemTest()
         {
             ClassicCheeseburger b = new();
 
             Assert.IsAssignableFrom<IMenuItem>(b);
             Assert.IsAssignableFrom<Burger>(b);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindsNameTest()
+        {
+            ClassicCheeseburger b = new();
+
+            Assert.Equal("Classic Cheeseburger", b.Name);
         }
     }
 }

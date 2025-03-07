@@ -30,7 +30,7 @@ namespace DairyBarn.DataTests
         {
             PickTwo two = new();
 
-            Assert.Equal(new ClassicCheeseburger(), two.BurgerChoice);
+            Assert.IsType<ClassicCheeseburger>(two.BurgerChoice);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace DairyBarn.DataTests
         {
             PickTwo two = new();
 
-            Assert.Equal(new ClassicSundae(), two.IceCreamChoice);
+            Assert.IsType<ClassicSundae>(two.IceCreamChoice);
         }
 
         /// <summary>
@@ -64,6 +64,17 @@ namespace DairyBarn.DataTests
             PickTwo two = new();
 
             Assert.Equal((3.49m + 6.29m) * .75m, two.Price);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            PickTwo two = new();
+
+            Assert.Equal("Pick Two", two.Name);
         }
     }
 }

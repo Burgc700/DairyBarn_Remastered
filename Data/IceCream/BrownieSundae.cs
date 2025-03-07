@@ -55,19 +55,19 @@ namespace DairyBarn.Data
         {
             get
             {
-                uint cals = 910;
+                uint cals = 220 * Scoops;
 
-                if (WhippedCream == false)
+                if (WhippedCream == true)
                 {
-                    cals -= 80;
+                    cals += 80;
                 }
-                if (Cherry == false)
+                if (Cherry == true)
                 {
-                    cals -= 10;
+                    cals += 10;
                 }
-                if (SauceChoice != IceCreamSauce.HotFudge)
+                if (SauceChoice == IceCreamSauce.HotFudge)
                 {
-                    cals -= 130;
+                    cals += 130;
                 }
                 if (Peanuts == true)
                 {
@@ -87,21 +87,21 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (SauceChoice != IceCreamSauce.HotFudge)
+                if (SauceChoice == IceCreamSauce.HotFudge)
                 {
-                    instructions.Add("Hold Hot Fudge");
+                    instructions.Add("Hot Fudge");
                 }
-                if (WhippedCream == false)
+                if (WhippedCream == true)
                 {
-                    instructions.Add("Hold Whipped Cream");
+                    instructions.Add("Whipped Cream");
                 }
-                if (Cherry == false)
+                if (Cherry == true)
                 {
-                    instructions.Add("Hold Cherry");
+                    instructions.Add("Cherry");
                 }
                 if (Peanuts == true)
                 {
-                    instructions.Add("Add Peanuts");
+                    instructions.Add("Peanuts");
                 }
 
                 return instructions;

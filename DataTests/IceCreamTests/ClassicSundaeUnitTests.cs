@@ -177,7 +177,7 @@ namespace DairyBarn.DataTests
         [InlineData(0, 1)]
         [InlineData(4, 1)]
         [InlineData(50, 1)]
-        public void CheckBoundsOnScoops(uint scoops, uint expected)
+        public void CheckBoundsOnScoopsTest(uint scoops, uint expected)
         {
             ClassicSundae s = new() { Scoops = scoops };
 
@@ -211,7 +211,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckPeanutOptions(bool peanut, bool expected)
+        public void CheckPeanutOptionsTest(bool peanut, bool expected)
         {
             ClassicSundae s = new() { Peanuts = peanut };
 
@@ -226,7 +226,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckWhippedCreamOptions(bool whippedCream, bool expected)
+        public void CheckWhippedCreamOptionsTest(bool whippedCream, bool expected)
         {
             ClassicSundae s = new() { WhippedCream = whippedCream };
 
@@ -241,7 +241,7 @@ namespace DairyBarn.DataTests
         [Theory]
         [InlineData(false, false)]
         [InlineData(true, true)]
-        public void CheckCherryOptions(bool cherry, bool expected)
+        public void CheckCherryOptionsTest(bool cherry, bool expected)
         {
             ClassicSundae s = new() { Cherry = cherry };
 
@@ -249,15 +249,26 @@ namespace DairyBarn.DataTests
         }
 
         /// <summary>
-        /// If this sundae is part of IMenuItem and is a Icecream.
+        /// If this sundae is part of IMenuItem and is a ice cream.
         /// </summary>
         [Fact]
-        public void CheckIsAnIMenuItem()
+        public void CheckIsAnIMenuItemTest()
         {
             ClassicSundae s = new();
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+        }
+
+        /// <summary>
+        /// Tests to make sure that the right name is returned.
+        /// </summary>
+        [Fact]
+        public void FindNameTest()
+        {
+            ClassicSundae s = new();
+
+            Assert.Equal("Classic Sundae", s.Name);
         }
     }
 }
