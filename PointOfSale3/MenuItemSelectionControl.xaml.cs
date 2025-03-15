@@ -36,7 +36,7 @@ namespace DairyBarn.PointOfSale
         {
             if(sender is Button b)
             {
-                if(DataContext is ObservableCollection<IMenuItem> list)
+                if(DataContext is Order list)
                 {
                     //Burgers
                     if(b.Name == "bYOBurger")

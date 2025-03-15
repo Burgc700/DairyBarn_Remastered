@@ -8,19 +8,42 @@
              d:DesignHeight="500" d:DesignWidth="250">
     
     <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Margin="5">
-            <TextBlock DockPanel.Dock="Top" x:Name="ordeNumber" Text="Order number: 1"/>
-            <TextBlock x:Name="otherInfo" Text="Placed at: 3/4/2025 6:15 PM"/>
+        <StackPanel DockPanel.Dock="Top" Margin="5" Orientation="Horizontal">
+            <TextBlock Text="Order: "/>
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Path=OrderNumber}"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
+            <TextBlock Text="{Binding Path=PlacedAt, StringFormat='Date: {0}'}"/>
         </StackPanel>
         
-        <ListView x:Name="orderHistory" ItemsSource="{Binding}" DockPanel.Dock="Top" Height="400" Margin="5" ScrollViewer.CanContentScroll="False">
-
+        <ListView x:Name="orderHistory" ItemsSource="{Binding}" DockPanel.Dock="Top" Height="375" Margin="5" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <DockPanel>
+                            <TextBlock x:Name="itemPrice" DockPanel.Dock="Right" Text="{Binding Price, StringFormat='{}{0:C}'}"/>
+                            <TextBlock x:Name="itemName" DockPanel.Dock="Left" Text="{Binding Path=Name}"/>
+                        </DockPanel>
+                        <Button Click="RemoveClick">Remove</Button>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel DockPanel.Dock="Bottom" Margin="5">
-            <TextBlock x:Name="subtotal" Text="Subtotal: XXX" DockPanel.Dock="Bottom"/>
-            <TextBlock x:Name="tax" Text="Tax: XXX" DockPanel.Dock="Bottom"/>
-            <TextBlock x:Name="total" DockPanel.Dock="Bottom" Text="Total: XXX"/>
+        <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <TextBlock Text="Total: "/>
+            <TextBlock Text="{Binding Path=Total, StringFormat='{}{0:C}'}"/>
+        </StackPanel>
+
+        <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <TextBlock Text="Tax: "/>
+            <TextBlock Text="{Binding Path=Tax, StringFormat='{}{0:C}'}"/>
+        </StackPanel>
+
+        <StackPanel Margin="5" Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <TextBlock Text="Subtotal: "/>
+            <TextBlock Text="{Binding Path=Subtotal, StringFormat='{}{0:C}'}"/>
         </StackPanel>
         
     </DockPanel>

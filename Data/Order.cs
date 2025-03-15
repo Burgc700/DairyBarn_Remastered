@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +12,22 @@ namespace DairyBarn.Data
     /// <summary>
     /// An instance where more than one item is on the order.
     /// </summary>
-    public class Order : ICollection<IMenuItem>
+    public class Order : ICollection<IMenuItem>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         /// <summary>
         /// List of menu items on this order.
         /// </summary>
         private List<IMenuItem> _menuItems = new();
+
+        /// <summary>
+        /// Finds the listener and tells it that the collection has changed.
+        /// </summary>
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        /// <summary>
+        /// Finds the listens and tells it that the property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Calculates the subtotal for all the items being ordered.
@@ -49,6 +61,26 @@ namespace DairyBarn.Data
         public decimal Total => Subtotal + Tax;
 
         /// <summary>
+        /// Gives the next order number.
+        /// </summary>
+        private static uint _nextOrderNumber = 1;
+
+        /// <summary>
+        /// The current order number. Also increments next order by 1.
+        /// </summary>
+        private uint _orderNumber = _nextOrderNumber++;
+
+        /// <summary>
+        /// Gets the current order number.
+        /// </summary>
+        public uint OrderNumber => _orderNumber;
+
+        /// <summary>
+        /// Gets the current date and time.
+        /// </summary>
+        public DateTime PlacedAt { get; } = DateTime.Now;
+
+        /// <summary>
         /// Finds the count of things on the order.
         /// </summary>
         public int Count => _menuItems.Count;
@@ -67,6 +99,10 @@ namespace DairyBarn.Data
             if(item != null)
             {
                 _menuItems.Add(item);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
             }
         }
 
@@ -76,6 +112,10 @@ namespace DairyBarn.Data
         public void Clear()
         {
             _menuItems.Clear();
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
         }
 
         /// <summary>
@@ -148,8 +188,15 @@ namespace DairyBarn.Data
         /// <returns>If the item was removed or not.</returns>
         public bool Remove(IMenuItem item)
         {
-            if(_menuItems.Remove(item))
+            int menuItemRemoved = _menuItems.IndexOf(item);
+
+            if(menuItemRemoved != -1)
             {
+                _menuItems.Remove(item);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, menuItemRemoved));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
                 return true;
             }
             return false;

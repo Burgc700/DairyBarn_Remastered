@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DairyBarn.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,25 @@ namespace DairyBarn.PointOfSale
         public OrderSummaryControl()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Removes an item from the list view and updates the tax, subtotal, and total.
+        /// </summary>
+        /// <param name="sender">The button click</param>
+        /// <param name="e">The item in the list view that is being removed.</param>
+        public void RemoveClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button b)
+            {
+                if (DataContext is Order order)
+                {
+                    if (b.DataContext is IMenuItem item)
+                    {
+                        order.Remove(item);
+                    }
+                }
+            }
         }
     }
 }

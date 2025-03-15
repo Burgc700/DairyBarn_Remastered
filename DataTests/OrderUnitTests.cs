@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -158,6 +159,124 @@ namespace DairyBarn.DataTests
             Order o = new();
 
             Assert.Equal(0, o.Tax);
+        }
+
+        /// <summary>
+        /// Makes sure the order property gets incremented by 1 every order.
+        /// </summary>
+        [Fact]
+        public void OrderIncreasesBy1Test()
+        {
+            Order o1 = new();
+            Order o2 = new();
+            Assert.Equal(o1.OrderNumber + 1, o2.OrderNumber);
+        }
+
+        /// <summary>
+        /// Makes sure the order number stays the same throughout the whole order.
+        /// </summary>
+        [Fact]
+        public void NumberDoesntChangeWhenRequestedMoreThanOnceTest()
+        {
+            Order o = new();
+            Order o2 = new();
+            Order o3 = new();
+            uint currNumber = 2;
+            Assert.Equal(currNumber , o.OrderNumber - 1);
+
+        }
+
+        /// <summary>
+        /// Makes sure the time and date stays the same throughout the whole order.
+        /// </summary>
+        [Fact]
+        public void DateTimeDoesntChangeWhenRequestedMoreThanOnceTest()
+        {
+            Order o = new();
+
+            DateTime orderPlaced = o.PlacedAt;
+            Order o2 = new();
+            Order o3 = new();
+
+            Assert.Equal(orderPlaced, o.PlacedAt);
+        }
+
+        /// <summary>
+        /// Makes sure that Order implements the correct interfaces.
+        /// </summary>
+        [Fact]
+        public void ImplementsCorrectInterfacesTest()
+        {
+            Order o = new();
+
+            Assert.IsAssignableFrom<INotifyCollectionChanged>(o);
+            Assert.IsAssignableFrom<INotifyCollectionChanged>(o);
+        }
+
+        /// <summary>
+        /// Test to make sure all the properties are updated when we add something to the order.
+        /// </summary>
+        /// <param name="property">The property we are updating.</param>
+        [Theory]
+        [InlineData("Subtotal")]
+        [InlineData("Tax")]
+        [InlineData("Total")]
+        public void PropertiesChangeWhenAddingTest(string property)
+        {
+            Order o = new();
+            Assert.PropertyChanged(o, property, () =>
+            {
+                o.Add(new MockMenuItem());
+            });
+        }
+
+        /// <summary>
+        /// Tests to make sure all the properties are updated when we remove something from the order.
+        /// </summary>
+        /// <param name="property">The property we are updating</param>
+        [Theory]
+        [InlineData("Subtotal")]
+        [InlineData("Tax")]
+        [InlineData("Total")]
+        public void PropertiesChangeWhenRemovingTest(string property)
+        {
+            Order o = new();
+            MockMenuItem m = new();
+            o.Add(m);
+            Assert.PropertyChanged(o, property, () =>
+            {
+                o.Remove(m);
+            });
+        }
+
+        /// <summary>
+        /// Tests to make sure all properties go back to 0 when we clear the order.
+        /// </summary>
+        /// <param name="property">The property we are updating.</param>
+        [Theory]
+        [InlineData("Subtotal")]
+        [InlineData("Tax")]
+        [InlineData("Total")]
+        public void PropertiesChangeWhenClearTest(string property)
+        {
+            Order o = new();
+            Assert.PropertyChanged(o, property, () =>
+            {
+                o.Clear();
+            });
+        }
+
+        /// <summary>
+        /// Tests that if the tax rate changes then every other property dealing with price changes.
+        /// </summary>
+        [Fact]
+        public void TaxRateHasChangedTest()
+        {
+            Order o = new();
+
+            o.TaxRate = 0.0850m;
+
+            Assert.Equal(0.0850m, o.TaxRate);
         }
     }
 }

@@ -21,6 +21,19 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new ObservableCollection<IMenuItem>();
+        DataContext = new Order();
+    }
+
+    /// <summary>
+    /// Clears every item from an order.
+    /// </summary>
+    /// <param name="sender">The cancel order click.</param>
+    /// <param name="e">The button click on the button.</param>
+    public void CancelOrderClick(object sender, RoutedEventArgs e)
+    {
+        if(DataContext is Order order)
+        {
+            order.Clear();
+        }
     }
 }
