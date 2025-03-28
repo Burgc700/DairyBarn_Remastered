@@ -22,9 +22,29 @@ namespace DairyBarn.Data
         public override string Description { get; } = "A blend of vanilla ice cream with your favorite sauce and mix-in.";
 
         /// <summary>
+        /// The default value for the mix in option for this ice cream.
+        /// </summary>
+        private IceCreamMixIn _mixInChoice = IceCreamMixIn.Oreos;
+
+        /// <summary>
+        /// The list of mix in options
+        /// </summary>
+        public List<IceCreamMixIn> MixInOptions { get; } = new();
+
+        /// <summary>
         /// What type of Mix-in this sundae has.
         /// </summary>
-        public IceCreamMixIn MixInChoice { get; set; } = IceCreamMixIn.Oreos;
+        public IceCreamMixIn MixInChoice
+        {
+            get => _mixInChoice;
+            set
+            {
+                _mixInChoice = value;
+                OnPropertyChanged(nameof(MixInChoice));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The price of this sundae.
@@ -98,9 +118,9 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (SauceChoice == IceCreamSauce.ChocolateSauce)
+                if (SauceChoice != IceCreamSauce.ChocolateSauce && SauceChoice == IceCreamSauce.None)
                 {
-                    instructions.Add("Chocolate Sauce");
+                    instructions.Add("Hold Chocolate Sauce");
                 }
                 if (SauceChoice == IceCreamSauce.HotFudge)
                 {
@@ -118,9 +138,9 @@ namespace DairyBarn.Data
                 {
                     instructions.Add("Crushed Pineapple");
                 }
-                if (MixInChoice == IceCreamMixIn.Oreos)
+                if (MixInChoice != IceCreamMixIn.Oreos)
                 {
-                    instructions.Add("Oreos");
+                    instructions.Add("Hold Oreos");
                 }
                 if (MixInChoice == IceCreamMixIn.Reeses)
                 {
@@ -153,6 +173,10 @@ namespace DairyBarn.Data
             SauceOptions.Add(IceCreamSauce.HotFudge);
             SauceOptions.Add(IceCreamSauce.Caramel);
             SauceOptions.Add(IceCreamSauce.CrushedPineapple);
+            MixInOptions.Add(IceCreamMixIn.CookieDough);
+            MixInOptions.Add(IceCreamMixIn.Oreos);
+            MixInOptions.Add(IceCreamMixIn.Reeses);
+            MixInOptions.Add(IceCreamMixIn.MandMs);
         }
     }
 }

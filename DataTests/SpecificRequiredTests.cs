@@ -141,7 +141,7 @@ namespace DairyBarn.DataTests
 
             two.BurgerChoice = new BBQBaconCheeseburger() { CheeseChoice = Cheese.None };
             two.IceCreamChoice = new WinterSwirl() { SauceChoice = IceCreamSauce.Caramel, MixInChoice = IceCreamMixIn.CookieDough };
-            string[] prep = new string[] { "Burger: BBQ Bacon Cheeseburger", "\tHold Cheddar Cheese", "Ice Cream: Winter Swirl", "\tCaramel", "\tCookie Dough" };
+            string[] prep = new string[] { "Burger: BBQ Bacon Cheeseburger", "\tHold Cheddar Cheese", "Ice Cream: Winter Swirl", "\tCaramel", "\tCookie Dough", "\tHold Oreos" };
 
             Assert.Equal(1345u, two.Calories);
             Assert.Equal(9.21m, two.Price);

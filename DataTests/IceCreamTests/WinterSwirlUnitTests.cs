@@ -126,14 +126,14 @@ namespace DairyBarn.DataTests
         /// <param name="mixIn">The mix in we are adding.</param>
         /// <param name="expected">The expected information.</param>
         [Theory]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { "Chocolate Sauce", "Oreos"})]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { })]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Hold Oreos", "Add Reeses" })]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Hold Oreos", "Add Cookie Dough" })]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "Hold Oreos", "Add M&M's "})]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's" })]
-        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough" })]
-        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses" })]
-        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's" })]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's", "Hold Oreos" })]
+        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough", "Hold Oreos" })]
+        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses", "Hold Oreos" })]
+        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's", "Hold Oreos" })]
         [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Oreos" })]
         public void PrepInfoCheckingForDifferentIngredientTest(IceCreamSauce sauce, IceCreamMixIn mixIn, string[] expected)
         {

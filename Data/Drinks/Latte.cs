@@ -30,8 +30,11 @@ namespace DairyBarn.Data
             set
             {
                 _vanilla = value;
+                OnPropertyChanged(nameof(Vanilla));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
-
         }
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace DairyBarn.Data
                 {
                     _cream = false;
                 }
+                OnPropertyChanged(nameof(Cream));
             }
         }
 
@@ -69,19 +73,23 @@ namespace DairyBarn.Data
                 {
                     _sugar = false;
                 }
+                OnPropertyChanged(nameof(Sugar));
             }
         }
 
         public Latte()
         {
             _sizeOfCup = CoffeeSize.Tall;
-            Decaf = false;
-            Iced = false;
+            _decaf = false;
+            _iced = false;
             _vanilla = false;
             _sugar = false;
             _cream = false;
             _startingCost = 3.49m;
             _startingCals = 150;
+            CupOptions.Add(CoffeeSize.Grande);
+            CupOptions.Add(CoffeeSize.Tall);
+            CupOptions.Add(CoffeeSize.Venti);
         }
     }
 }

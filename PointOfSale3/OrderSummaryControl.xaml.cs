@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -21,6 +22,10 @@ namespace DairyBarn.PointOfSale
     /// </summary>
     public partial class OrderSummaryControl : UserControl
     {
+        public event EventHandler<RoutedEventArgs>? RemoveEvent;
+
+        public event EventHandler<MenuItemEventArgs>? EditEvent;
+
         public OrderSummaryControl()
         {
             InitializeComponent();
@@ -40,6 +45,26 @@ namespace DairyBarn.PointOfSale
                     if (b.DataContext is IMenuItem item)
                     {
                         order.Remove(item);
+                    }
+                }
+            }
+            RemoveEvent?.Invoke(this, new RoutedEventArgs());
+        }
+
+        /// <summary>
+        /// Displays the custom control to edit that menu item.
+        /// </summary>
+        /// <param name="sender">The edit button that is clicked.</param>
+        /// <param name="e">The menu item control that shows when the button is clicked.</param>
+        public void EditClick(object sender, RoutedEventArgs e)
+        {
+            if(sender is Button b)
+            {
+                if(DataContext is Order order)
+                {
+                    if(b.DataContext is IMenuItem item)
+                    {
+                        EditEvent?.Invoke(this, new MenuItemEventArgs(item));
                     }
                 }
             }

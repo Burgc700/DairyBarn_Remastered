@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace DairyBarn.Data
     /// </summary>
     public abstract class Drink : IMenuItem
     {
+        /// <summary>
+        /// Finds the listens and tells it that the property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Gets the name of the drink.
         /// </summary>
@@ -170,19 +176,53 @@ namespace DairyBarn.Data
         }
 
         /// <summary>
+        /// The default value for if the drink is iced.
+        /// </summary>
+        protected bool _iced = false;
+
+        /// <summary>
         /// If the drink is iced.
         /// </summary>
-        public bool Iced { get; set; } = false;
+        public bool Iced
+        {
+            get => _iced;
+            set
+            {
+                _iced = value;
+                OnPropertyChanged(nameof(Iced));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if the drink is decaf.
+        /// </summary>
+        protected bool _decaf = false;
 
         /// <summary>
         /// If the drink is decaf.
         /// </summary>
-        public bool Decaf { get; set; } = false;
+        public bool Decaf
+        {
+            get => _decaf;
+            set
+            {
+                _decaf = value;
+                OnPropertyChanged(nameof(Decaf));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The size of cup that comes default with the coffee.
         /// </summary>
         protected CoffeeSize _sizeOfCup = CoffeeSize.Tall;
+
+        /// <summary>
+        /// Gets a list of the size of cups.
+        /// </summary>
+        public List<CoffeeSize> CupOptions { get; } = new();
 
         /// <summary>
         /// The allowed sizes of cups that come with the drinks.
@@ -196,6 +236,10 @@ namespace DairyBarn.Data
                 {
                     _sizeOfCup = value;
                 }
+                OnPropertyChanged(nameof(SizeOfCup));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -206,6 +250,15 @@ namespace DairyBarn.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Helper method to invoke the properties that are changing when customizing the control.
+        /// </summary>
+        /// <param name="propertyName">The property we are invoking the change on.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

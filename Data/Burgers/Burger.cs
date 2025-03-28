@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace DairyBarn.Data
     /// </summary>
     public abstract class Burger : IMenuItem
     {
+        /// <summary>
+        /// Finds the listens and tells it that the property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Gets the information for the burger ingredients.
         /// </summary>
@@ -36,7 +42,7 @@ namespace DairyBarn.Data
             /// </summary>
             public bool Default { get; set; }
 
-
+            
 
             /// <summary>
             /// The constructor.
@@ -185,7 +191,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// The cheese options for a burger.
         /// </summary>
-        public List<Cheese> CheeseOptions = new();
+        public List<Cheese> CheeseOptions { get; } = new();
 
         /// <summary>
         /// The choice of cheese for this burger.
@@ -209,6 +215,9 @@ namespace DairyBarn.Data
                 {
                     _cheeseChoice = value;
                 }
+                OnPropertyChanged(nameof(CheeseChoice));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -244,6 +253,10 @@ namespace DairyBarn.Data
                 {
                     _patties = value;
                 }
+                OnPropertyChanged(nameof(Patties));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -269,6 +282,15 @@ namespace DairyBarn.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Helper method to invoke the properties that are changing when customizing the control.
+        /// </summary>
+        /// <param name="propertyName">The property we are invoking the change on.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

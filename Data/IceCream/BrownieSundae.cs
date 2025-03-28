@@ -18,19 +18,65 @@ namespace DairyBarn.Data
         public override string Description { get; } = "A decadent sundae with two scoops of ice cream, whipped cream, cherry, and hot fudge on top of a gooey brownie";
 
         /// <summary>
+        /// The default value for if this ice cream has whipped cream.
+        /// </summary>
+        private bool _whippedCream = true;
+
+        /// <summary>
         /// Whether this sundae contains Whipped Cream
         /// </summary>
-        public bool WhippedCream { get; set; } = true;
+        public bool WhippedCream
+        {
+            get => _whippedCream;
+            set
+            {
+                _whippedCream = value;
+                OnPropertyChanged(nameof(WhippedCream));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has cherry.
+        /// </summary>
+        private bool _cherry = true;
 
         /// <summary>
         /// Whether this sundae contains cherry
         /// </summary>
-        public bool Cherry { get; set; } = true;
+        public bool Cherry
+        {
+            get => _cherry;
+            set
+            {
+                _cherry = value;
+                OnPropertyChanged(nameof(Cherry));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has peanuts.
+        /// </summary>
+        private bool _peanuts = false;
 
         /// <summary>
         /// Whether this sundae contains peanuts
         /// </summary>
-        public bool Peanuts { get; set; } = false;
+        public bool Peanuts
+        {
+            get => _peanuts;
+            set
+            {
+                _peanuts = value;
+                OnPropertyChanged(nameof(Peanuts));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The price of this sundae.
@@ -87,17 +133,17 @@ namespace DairyBarn.Data
             {
                 List<string> instructions = new();
 
-                if (SauceChoice == IceCreamSauce.HotFudge)
+                if (SauceChoice != IceCreamSauce.HotFudge)
                 {
-                    instructions.Add("Hot Fudge");
+                    instructions.Add("Hold Hot Fudge");
                 }
-                if (WhippedCream == true)
+                if (WhippedCream != true)
                 {
-                    instructions.Add("Whipped Cream");
+                    instructions.Add("Hold Whipped Cream");
                 }
-                if (Cherry == true)
+                if (Cherry != true)
                 {
-                    instructions.Add("Cherry");
+                    instructions.Add("Hold Cherry");
                 }
                 if (Peanuts == true)
                 {

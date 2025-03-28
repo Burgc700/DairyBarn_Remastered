@@ -36,7 +36,11 @@ namespace DairyBarn.Data
                 if (_veggie == false)
                 {
                     _veggie = true;
-                }    
+                }
+                OnPropertyChanged(nameof(Veggie));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 

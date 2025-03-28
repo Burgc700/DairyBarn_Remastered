@@ -37,6 +37,7 @@ namespace DairyBarn.Data
                 {
                     _vanilla = false;
                 }
+                OnPropertyChanged(nameof(Vanilla));
             }
         }
 
@@ -56,6 +57,7 @@ namespace DairyBarn.Data
                 {
                     _cream = false;
                 }
+                OnPropertyChanged(nameof(Cream));
             }
         }
 
@@ -75,19 +77,23 @@ namespace DairyBarn.Data
                 {
                     _sugar = false;
                 }
+                OnPropertyChanged(nameof(Sugar));
             }
         }
 
         public Mocha()
         {
             _sizeOfCup = CoffeeSize.Tall;
-            Iced = false;
-            Decaf = false;
+            _iced = false;
+            _decaf = false;
             _vanilla = false;
             _sugar = false;
             _cream = false;
             _startingCost = 3.99m;
             _startingCals = 200;
+            CupOptions.Add(CoffeeSize.Grande);
+            CupOptions.Add(CoffeeSize.Tall);
+            CupOptions.Add(CoffeeSize.Venti);
         }
     }
 }

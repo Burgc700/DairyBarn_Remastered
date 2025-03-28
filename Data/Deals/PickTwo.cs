@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace DairyBarn.Data
     public class PickTwo : IMenuItem
     {
         /// <summary>
+        /// Finds the listens and tells it that the property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
         /// The name of the menu item.
         /// </summary>
         public string Name => "Pick Two";
@@ -22,14 +28,46 @@ namespace DairyBarn.Data
         public string Description => "Any burger plus your favorite ice cream.";
 
         /// <summary>
+        /// The default kind of burger for the deal.
+        /// </summary>
+        private Burger _burgerChoice = new ClassicCheeseburger();
+
+        /// <summary>
         /// The choice of burger.
         /// </summary>
-        public Burger BurgerChoice { get; set; } = new ClassicCheeseburger();
+        public Burger BurgerChoice
+        {
+            get => _burgerChoice;
+            set
+            {
+                _burgerChoice = value;
+                OnPropertyChanged(nameof(BurgerChoice));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default kind of ice cream for the deal.
+        /// </summary>
+        private IceCream _iceCreamChoice = new ClassicSundae();
 
         /// <summary>
         /// The choice of ice cream.
         /// </summary>
-        public IceCream IceCreamChoice { get; set; } = new ClassicSundae();
+        public IceCream IceCreamChoice
+        {
+            get => _iceCreamChoice;
+            set
+            {
+                _iceCreamChoice = value;
+                OnPropertyChanged(nameof(IceCreamChoice));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The price of the burger and ice cream.
@@ -73,6 +111,15 @@ namespace DairyBarn.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Helper method to invoke the properties that are changing when customizing the control.
+        /// </summary>
+        /// <param name="propertyName">The property we are invoking the change on.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

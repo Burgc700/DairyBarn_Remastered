@@ -22,19 +22,65 @@ namespace DairyBarn.Data
         public override string Description { get; } = "A sundae with two scoops of ice cream, strawberry sauce, whipped cream, and a cherry all on top of buttery pound cake";
 
         /// <summary>
+        /// The default value for if this ice cream has whipped cream.
+        /// </summary>
+        private bool _whippedCream = true;
+
+        /// <summary>
         /// Whether this sundae has whipped cream
         /// </summary>
-        public bool WhippedCream { get; set; } = true;
+        public bool WhippedCream
+        {
+            get => _whippedCream;
+            set
+            {
+                _whippedCream = value;
+                OnPropertyChanged(nameof(WhippedCream));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has cherry.
+        /// </summary>
+        private bool _cherry = true;
 
         /// <summary>
         /// Whether this sundae has cherry
         /// </summary>
-        public bool Cherry { get; set; } = true;
+        public bool Cherry
+        {
+            get => _cherry;
+            set
+            {
+                _cherry = value;
+                OnPropertyChanged(nameof(Cherry));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has peanuts.
+        /// </summary>
+        private bool _peanuts = false;
 
         /// <summary>
         /// Whether this sundae has peanuts
         /// </summary>
-        public bool Peanuts { get; set; } = false;
+        public bool Peanuts
+        {
+            get => _peanuts;
+            set
+            {
+                _peanuts = value;
+                OnPropertyChanged(nameof(Peanuts));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The price of this sundae

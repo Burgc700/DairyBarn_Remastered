@@ -25,7 +25,9 @@
                             <TextBlock x:Name="itemPrice" DockPanel.Dock="Right" Text="{Binding Price, StringFormat='{}{0:C}'}"/>
                             <TextBlock x:Name="itemName" DockPanel.Dock="Left" Text="{Binding Path=Name}"/>
                         </DockPanel>
+                        <ListView x:Name="prepInfo" ItemsSource="{Binding Path=PreparationInformation}"/>
                         <Button Click="RemoveClick">Remove</Button>
+                        <Button Click="EditClick">Edit</Button>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

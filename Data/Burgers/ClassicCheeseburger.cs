@@ -31,7 +31,10 @@ namespace DairyBarn.Data
             set
             {
                 _veggie = value;
-
+                OnPropertyChanged(nameof(Veggie));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 

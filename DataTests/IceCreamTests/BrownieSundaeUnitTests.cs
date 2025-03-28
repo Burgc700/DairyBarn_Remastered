@@ -137,12 +137,12 @@ namespace DairyBarn.DataTests
         /// <param name="sauce">The type of sauce on this sundae.</param>
         /// <param name="expected">The expected information.</param>
         [Theory]
-        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, new string[] { "Whipped cream", "Cherry", "Hot Fudge"})]
-        [InlineData(true, true, false, 2, IceCreamSauce.None, new string[] { "Whipped cream", "Cherry" })]
-        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, new string[] { "Peanuts", "Whipped Cream", "Cherry", "Hot Fudge" })]
-        [InlineData(false, true, true, 2, IceCreamSauce.None, new string[] { "Peanuts", "Cherry" })]
-        [InlineData(true, false, true, 3, IceCreamSauce.None, new string[] { "Peanuts", "Whipped Cream" })]
-        [InlineData(false, false, true, 2, IceCreamSauce.None, new string[] { "Add Peanuts" })]
+        [InlineData(true, true, false, 2, IceCreamSauce.HotFudge, new string[] { })]
+        [InlineData(true, true, false, 2, IceCreamSauce.None, new string[] { "Hold Hot Fudge" })]
+        [InlineData(true, true, true, 1, IceCreamSauce.HotFudge, new string[] { "Peanuts" })]
+        [InlineData(false, true, true, 2, IceCreamSauce.None, new string[] { "Peanuts", "Hold Hot Fudge", "Hold Whipped Cream" })]
+        [InlineData(true, false, true, 3, IceCreamSauce.None, new string[] { "Peanuts", "Hold Cherry", "Hold Hot Fudge" })]
+        [InlineData(false, false, true, 2, IceCreamSauce.None, new string[] { "Add Peanuts", "Hold Hot Fudge", "Hold Whipped Cream", "Hold Cherry" })]
         public void PrepInfoCheckingForDifferentIngredientTest(bool whippedCream, bool cherry, bool peanuts, uint scoops, IceCreamSauce sauce, string[] expected) //if scoops is more than 1 do they get += another of the sauce cals?
         {
             BrownieSundae s = new();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace DairyBarn.Data
     /// </summary>
     public abstract class IceCream : IMenuItem
     {
+        /// <summary>
+        /// Finds the listens and tells it that the property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// The name of the menu item with ice cream.
         /// </summary>
@@ -68,6 +74,10 @@ namespace DairyBarn.Data
                 {
                     _scoops = value;
                 }
+                OnPropertyChanged(nameof(Scoops));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -88,6 +98,10 @@ namespace DairyBarn.Data
                 {
                     _sauceChoice = value;
                 }
+                OnPropertyChanged(nameof(SauceChoice));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -99,7 +113,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// The different sauce options allowed on this ice cream.
         /// </summary>
-        public List<IceCreamSauce> SauceOptions = new();
+        public List<IceCreamSauce> SauceOptions { get; } = new();
 
         /// <summary>
         /// Gets the name of the ice cream.
@@ -108,6 +122,15 @@ namespace DairyBarn.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Helper method to invoke the properties that are changing when customizing the control.
+        /// </summary>
+        /// <param name="propertyName">The property we are invoking the change on.</param>
+        protected void OnPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

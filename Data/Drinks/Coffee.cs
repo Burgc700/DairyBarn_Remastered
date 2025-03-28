@@ -30,6 +30,9 @@ namespace DairyBarn.Data
             set
             {
                 _sugar = value;
+                OnPropertyChanged(nameof(Sugar));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -42,6 +45,9 @@ namespace DairyBarn.Data
             set
             {
                 _cream = value;
+                OnPropertyChanged(nameof(Cream));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
         }
 
@@ -61,6 +67,9 @@ namespace DairyBarn.Data
                 {
                     _vanilla = false;
                 }
+                OnPropertyChanged(nameof(Vanilla));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
             }
 
         }
@@ -68,13 +77,16 @@ namespace DairyBarn.Data
         public Coffee()
         {
             _sizeOfCup = CoffeeSize.Tall;
-            Decaf = false;
-            Iced = false;
+            _decaf = false;
+            _iced = false;
             _vanilla = false;
             _cream = false;
             _sugar = false;
             _startingCost = 2.49m;
             _startingCals = 5;
+            CupOptions.Add(CoffeeSize.Grande);
+            CupOptions.Add(CoffeeSize.Tall);
+            CupOptions.Add(CoffeeSize.Venti);
         }
 
     }

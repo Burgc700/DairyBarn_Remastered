@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,11 @@ namespace DairyBarn.DataTests
         /// </summary>
         internal class MockMenuItem : IMenuItem
         {
+            /// <summary>
+            /// Finds the listens and tells it that the property has changed.
+            /// </summary>
+            public event PropertyChangedEventHandler? PropertyChanged;
+
             /// <summary>
             /// The name of the mock menu item.
             /// </summary>

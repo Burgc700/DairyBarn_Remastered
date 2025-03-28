@@ -22,6 +22,11 @@ namespace DairyBarn.PointOfSale
     /// </summary>
     public partial class MainItemSelectionControl : UserControl
     {
+        /// <summary>
+        /// Creates the event when a button is added to the order.
+        /// </summary>
+        public event EventHandler<MenuItemEventArgs>? MenuEvent;
+
         public MainItemSelectionControl()
         {
             InitializeComponent();
@@ -41,59 +46,85 @@ namespace DairyBarn.PointOfSale
                     //Burgers
                     if(b.Name == "bYOBurger")
                     {
-                        list.Add(new BYOBurger());
+                        BYOBurger byob = new();
+                        list.Add(byob);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(byob));
                     }
                     if(b.Name == "classicCheeseburger")
                     {
-                        list.Add(new ClassicCheeseburger());
+                        ClassicCheeseburger cb = new();
+                        list.Add(cb);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(cb));
                     }
                     if(b.Name == "bBQBaconCheeseburger")
                     {
-                        list.Add(new BBQBaconCheeseburger());
+                        BBQBaconCheeseburger bbqbc = new();
+                        list.Add(bbqbc);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(bbqbc));
                     }
                     if(b.Name == "veggieBurger")
                     {
-                        list.Add(new VeggieBurger());
+                        VeggieBurger vb = new();
+                        list.Add(vb);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(vb));
                     }
                     if(b.Name == "mushroomSwissBurger")
                     {
-                        list.Add(new MushroomSwissBurger());
+                        MushroomSwissBurger msb = new();
+                        list.Add(msb);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(msb));
                     }
 
                     //Ice Cream
                     if(b.Name == "classicSundae")
                     {
-                        list.Add(new ClassicSundae());
+                        ClassicSundae cs = new();
+                        list.Add(cs);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(cs));
                     }
                     if(b.Name == "iceCreamCone")
                     {
-                        list.Add(new IceCreamCone());
+                        IceCreamCone cone = new();
+                        list.Add(cone);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(cone));
                     }
                     if(b.Name == "brownieSundae")
                     {
-                        list.Add(new BrownieSundae());
+                        BrownieSundae bs = new();
+                        list.Add(bs);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(bs));
                     }
                     if(b.Name == "strawberryShortcake")
                     {
-                        list.Add(new StrawBerryShortcake());
+                        StrawBerryShortcake sb = new();
+                        list.Add(sb);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(sb));
                     }
                     if(b.Name == "winterSwirl")
                     {
-                        list.Add(new WinterSwirl());
+                        WinterSwirl winterSwirl = new();
+                        list.Add(winterSwirl);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(winterSwirl));
                     }
 
                     //drinks
                     if(b.Name == "coffee")
                     {
-                        list.Add(new Coffee());
+                        Coffee c = new();
+                        list.Add(c);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(c));
                     }
                     if(b.Name == "latte")
                     {
-                        list.Add(new Latte());
+                        Latte l = new();
+                        list.Add(l);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(l));
                     }
                     if(b.Name == "mocha")
                     {
-                        list.Add(new Mocha());
+                        Mocha m = new();
+                        list.Add(m);
+                        MenuEvent?.Invoke(this, new MenuItemEventArgs(m));
                     }
                 }
             }

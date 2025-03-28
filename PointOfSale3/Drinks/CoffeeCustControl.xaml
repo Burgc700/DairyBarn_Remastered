@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="DairyBarn.PointOfSale.CoffeeCustControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DairyBarn.PointOfSale"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height=".5*"/>
+        </Grid.RowDefinitions>
+
+        <local:BasicInfoControl Grid.Row="0"/>
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock VerticalAlignment="Center" FontSize="15">Type of Cup: </TextBlock>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding CupOptions}" SelectedItem="{Binding SizeOfCup}" Height="50" Width="200" FontSize="30"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Iced " FontSize="15"/>
+                <CheckBox IsChecked="{Binding Iced}" FontSize="15"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Decaf " FontSize="15"/>
+                <CheckBox IsChecked="{Binding Decaf}" FontSize="15"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Cream " FontSize="15"/>
+                <CheckBox IsChecked="{Binding Cream}" FontSize="15"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Sugar " FontSize="15"/>
+                <CheckBox IsChecked="{Binding Sugar}" FontSize="15"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

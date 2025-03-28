@@ -26,19 +26,65 @@ namespace DairyBarn.Data
         public override string Description => "Standard ice cream sundae with toppings";
 
         /// <summary>
+        /// The default value for if this ice cream has peanuts.
+        /// </summary>
+        private bool _peanuts = false;
+
+        /// <summary>
         /// Whether this sundae contains peanuts
         /// </summary>
-        public bool Peanuts { get; set; } = false;
+        public bool Peanuts
+        {
+            get => _peanuts;
+            set
+            {
+                _peanuts = value;
+                OnPropertyChanged(nameof(Peanuts));
+                OnPropertyChanged(nameof(Price));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has whipped cream.
+        /// </summary>
+        private bool _whippedCream = false;
 
         /// <summary>
         /// Whether this sundae contains whipped cream
         /// </summary>
-        public bool WhippedCream { get; set; } = false;
+        public bool WhippedCream
+        {
+            get => _whippedCream;
+            set
+            {
+                _whippedCream = value;
+                OnPropertyChanged(nameof(WhippedCream));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
+
+        /// <summary>
+        /// The default value for if this ice cream has cherry.
+        /// </summary>
+        private bool _cherry = false;
 
         /// <summary>
         /// Whether this sundae contains cherry
         /// </summary>
-        public bool Cherry { get; set; } = false;
+        public bool Cherry
+        {
+            get => _cherry;
+            set
+            {
+                _cherry = value;
+                OnPropertyChanged(nameof(Cherry));
+                OnPropertyChanged(nameof(Calories));
+                OnPropertyChanged(nameof(PreparationInformation));
+            }
+        }
 
         /// <summary>
         /// The price of this sundae
@@ -153,10 +199,10 @@ namespace DairyBarn.Data
                 {
                     instructions.Add("Add Cherry");
                 }
-                if(Scoops == 1)
-                {
-                    instructions.Add("1 Scoop");
-                }
+                //if(Scoops == 1)
+                //{
+                //    instructions.Add("1 Scoop");
+                //}
                 if (Scoops == 2)
                 {
                     instructions.Add("2 Scoops.");

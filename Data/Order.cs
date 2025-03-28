@@ -103,6 +103,7 @@ namespace DairyBarn.Data
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+                item.PropertyChanged += HandlePropertyChanged!;
             }
         }
 
@@ -116,6 +117,7 @@ namespace DairyBarn.Data
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            PropertyChanged -= HandlePropertyChanged!;
         }
 
         /// <summary>
@@ -197,6 +199,7 @@ namespace DairyBarn.Data
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+                item.PropertyChanged -= HandlePropertyChanged!;
                 return true;
             }
             return false;
@@ -209,6 +212,21 @@ namespace DairyBarn.Data
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Adds and gets rid of the properties when customizing menu items in the control.
+        /// </summary>
+        /// <param name="sender">The item we are adding or taking away.</param>
+        /// <param name="e">The MenuItem we are adding or taking away from.</param>
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "Price")
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Subtotal)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Tax)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Total)));
+            }
         }
     }
 }
