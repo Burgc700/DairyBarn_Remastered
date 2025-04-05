@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="DairyBarn.PointOfSale.PickTwoCustControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DairyBarn.PointOfSale"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <!--<RowDefinition Height="*"/>-->
+        </Grid.RowDefinitions>
+
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>-->
+
+        <local:BasicInfoControl Grid.Row="0" Grid.Column="0"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10" Orientation="Horizontal">
+            <TextBlock FontSize="15" Text="Burger Choice: "/>
+            <TextBlock FontSize="15" Text="{Binding BurgerChoice.Name}"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Button FontSize="15" Height="30" Click="EditBurgerClick">Edit Burger</Button>
+                <ComboBox ItemsSource="{Binding BurgerOptions}" SelectedItem="{Binding BurgerChoice}" Height="30" Width="175" FontSize="12" Margin="5"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10" Orientation="Horizontal">
+            <TextBlock FontSize="15" Text="Ice Cream Choice: "/>
+            <TextBlock FontSize="15" Text="{Binding IceCreamChoice.Name}"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="5">
+                <Button FontSize="15" Height="30" Click="EditIceCreamClick">Edit IceCream</Button>
+                <ComboBox ItemsSource="{Binding IceCreamOptions}" SelectedItem="{Binding IceCreamChoice}" Height="30" Width="175" FontSize="12" Margin="10"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!--<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+            <Button FontSize="15" Height="30">Edit Burger</Button>
+            <ComboBox ItemsSource="{Binding BurgerOptions}" SelectedItem="{Binding BurgerChoice}" Height="30" Width="150" FontSize="15" Margin="10"/>
+        </StackPanel>-->
+
+        <!--<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+            <Button FontSize="15" Height="30">Edit IceCream</Button>
+            <ComboBox ItemsSource="{Binding IceCreamOptions}" SelectedItem="{Binding IceCreamChoice}" Height="30" Width="150" FontSize="15" Margin="10"/>
+        </StackPanel>-->
+    </Grid>
+</UserControl>

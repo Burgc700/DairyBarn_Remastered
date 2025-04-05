@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DairyBarn.PointOfSale"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="100">
+             d:DesignHeight="25" d:DesignWidth="80">
     <Grid MinWidth="80">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Button Click="HandleDecrement" Grid.Column="0">-</Button>

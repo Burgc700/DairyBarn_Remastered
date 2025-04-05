@@ -28,6 +28,25 @@ namespace DairyBarn.Data
         public string Description => "Any burger plus your favorite ice cream.";
 
         /// <summary>
+        /// List of Burgers that can be applied to pick two.
+        /// </summary>
+        public List<Burger> BurgerOptions
+        {
+            get
+            {
+                List<Burger> list = new();
+                list.Add(_burgerChoice);
+
+                if (BurgerChoice is not ClassicCheeseburger) list.Add(new ClassicCheeseburger());
+                if (BurgerChoice is not VeggieBurger) list.Add(new VeggieBurger());
+                if (BurgerChoice is not BBQBaconCheeseburger) list.Add(new BBQBaconCheeseburger());
+                if (BurgerChoice is not BYOBurger) list.Add(new BYOBurger());
+                if (BurgerChoice is not MushroomSwissBurger) list.Add(new MushroomSwissBurger());
+                return list;
+            }
+        }
+
+        /// <summary>
         /// The default kind of burger for the deal.
         /// </summary>
         private Burger _burgerChoice = new ClassicCheeseburger();
@@ -40,11 +59,36 @@ namespace DairyBarn.Data
             get => _burgerChoice;
             set
             {
-                _burgerChoice = value;
-                OnPropertyChanged(nameof(BurgerChoice));
-                OnPropertyChanged(nameof(Price));
-                OnPropertyChanged(nameof(Calories));
-                OnPropertyChanged(nameof(PreparationInformation));
+                if(value != _burgerChoice)
+                {
+                    _burgerChoice.PropertyChanged -= HandleBurgerChanged;
+                    _burgerChoice = value;
+                    _burgerChoice.PropertyChanged += HandleBurgerChanged;
+                    OnPropertyChanged(nameof(BurgerChoice));
+                    OnPropertyChanged(nameof(BurgerOptions));
+                    OnPropertyChanged(nameof(Price));
+                    OnPropertyChanged(nameof(Calories));
+                    OnPropertyChanged(nameof(PreparationInformation));
+                }
+            }
+        }
+
+        /// <summary>
+        /// List of ice creams that applied to pick two.
+        /// </summary>
+        public List<IceCream> IceCreamOptions
+        {
+            get
+            {
+                List<IceCream> list = new();
+                list.Add(_iceCreamChoice);
+
+                if(IceCreamChoice is not ClassicSundae) list.Add(new ClassicSundae());
+                if(IceCreamChoice is not BrownieSundae)list.Add(new BrownieSundae());
+                if(IceCreamChoice is not IceCreamCone)list.Add(new IceCreamCone());
+                if(IceCreamChoice is not StrawBerryShortcake)list.Add(new StrawBerryShortcake());
+                if(IceCreamChoice is not WinterSwirl)list.Add(new WinterSwirl());
+                return list;
             }
         }
 
@@ -61,11 +105,17 @@ namespace DairyBarn.Data
             get => _iceCreamChoice;
             set
             {
-                _iceCreamChoice = value;
-                OnPropertyChanged(nameof(IceCreamChoice));
-                OnPropertyChanged(nameof(Price));
-                OnPropertyChanged(nameof(Calories));
-                OnPropertyChanged(nameof(PreparationInformation));
+                if(value != _iceCreamChoice)
+                {
+                    _iceCreamChoice.PropertyChanged -= HandleBurgerChanged;
+                    _iceCreamChoice = value;
+                    _iceCreamChoice.PropertyChanged += HandleBurgerChanged;
+                    OnPropertyChanged(nameof(IceCreamChoice));
+                    OnPropertyChanged(nameof(IceCreamOptions));
+                    OnPropertyChanged(nameof(Price));
+                    OnPropertyChanged(nameof(Calories));
+                    OnPropertyChanged(nameof(PreparationInformation));
+                }
             }
         }
 
@@ -117,9 +167,30 @@ namespace DairyBarn.Data
         /// Helper method to invoke the properties that are changing when customizing the control.
         /// </summary>
         /// <param name="propertyName">The property we are invoking the change on.</param>
-        protected void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Updates the price calories and prep info in the type of burger has changed.
+        /// </summary>
+        /// <param name="sender">The drop down that the burger has changed to.</param>
+        /// <param name="e">Changes the information and it is reflected on the GUI.</param>
+        public void HandleBurgerChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Price));
+            OnPropertyChanged(nameof(Calories));
+            OnPropertyChanged(nameof(PreparationInformation));
+            OnPropertyChanged(nameof(BurgerOptions));
+        }
+
+        public PickTwo()
+        {
+            _burgerChoice = new ClassicCheeseburger();
+            _iceCreamChoice = new ClassicSundae();
+            _burgerChoice.PropertyChanged += HandleBurgerChanged;
+            _iceCreamChoice.PropertyChanged += HandleBurgerChanged;
         }
     }
 }

@@ -51,6 +51,10 @@ namespace DairyBarn.Data
             CheeseOptions.Add(Cheese.None);
             AllToppings[BurgerTopping.GrilledOnions] = new BurgerIngredient(BurgerTopping.GrilledOnions, "Grilled Onions", true, true);
             AllToppings[BurgerTopping.GrilledMushrooms] = new BurgerIngredient(BurgerTopping.GrilledMushrooms, "Grilled Mushrooms", true, true);
+            foreach (BurgerIngredient ing in AllToppings.Values)
+            {
+                ing.PropertyChanged += HandleIngredientChanged!;
+            }
         }
     }
 }

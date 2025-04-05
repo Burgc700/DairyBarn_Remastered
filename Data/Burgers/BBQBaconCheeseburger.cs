@@ -54,6 +54,10 @@ namespace DairyBarn.Data
             AllToppings[BurgerTopping.Bacon] = new BurgerIngredient(BurgerTopping.Bacon, "Bacon", true, true);
             AllToppings[BurgerTopping.BBQSauce] = new BurgerIngredient(BurgerTopping.BBQSauce, "BBQ Sauce", true, true);
             AllToppings[BurgerTopping.CrispyFriedOnions] = new BurgerIngredient(BurgerTopping.CrispyFriedOnions, "Crispy Fried Onions", true, true);
+            foreach(BurgerIngredient ing in AllToppings.Values)
+            {
+                ing.PropertyChanged += HandleIngredientChanged!;
+            }
         }
     }
 }

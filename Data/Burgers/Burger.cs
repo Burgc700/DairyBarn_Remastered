@@ -23,6 +23,11 @@ namespace DairyBarn.Data
         public class BurgerIngredient
         {
             /// <summary>
+            /// Listens to Included to see if a topping is included or not included.
+            /// </summary>
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            /// <summary>
             /// Gets the different types of burger toppings.
             /// </summary>
             public BurgerTopping Toppings { get; }
@@ -33,16 +38,27 @@ namespace DairyBarn.Data
             public string Name { get; }
 
             /// <summary>
+            /// Sets the default value for if an topping is included.
+            /// </summary>
+            private bool _included = true;
+
+            /// <summary>
             /// If the topping is being included on this burger.
             /// </summary>
-            public bool Included { get; set; }
+            public bool Included
+            {
+                get => _included;
+                set
+                {
+                    _included = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Included)));
+                }
+            }
 
             /// <summary>
             /// If the topping is default on this burger.
             /// </summary>
             public bool Default { get; set; }
-
-            
 
             /// <summary>
             /// The constructor.
@@ -64,6 +80,26 @@ namespace DairyBarn.Data
         /// Stores the toppings on the current burger.
         /// </summary>
         public Dictionary<BurgerTopping, BurgerIngredient> AllToppings { get; } = new();
+
+        /// <summary>
+        /// The default value for if it is part of pick two.
+        /// </summary>
+        private bool _partOfPickTwo = false;
+
+        /// <summary>
+        /// Determines if this burger is part of pick two already.
+        /// </summary>
+        public bool PartOfPickTwo
+        {
+            get => _partOfPickTwo;
+            set
+            {
+                _partOfPickTwo = value;
+                OnPropertyChanged(nameof(PartOfPickTwo));
+            }
+
+            
+        }
 
         /// <summary>
         /// Gets the name of the burger.
@@ -291,6 +327,18 @@ namespace DairyBarn.Data
         protected void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Changes price, calories, and preparation information for different toppings.
+        /// </summary>
+        /// <param name="sender">Any of the check boxs to customize the burger toppings.</param>
+        /// <param name="e">Changes the properties and reflects them on the GUI.</param>
+        protected void HandleIngredientChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Calories)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Price)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PreparationInformation)));
         }
     }
 }
