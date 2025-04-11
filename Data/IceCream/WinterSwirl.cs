@@ -140,11 +140,11 @@ namespace DairyBarn.Data
                 }
                 if (MixInChoice == IceCreamMixIn.Reeses)
                 {
-                    instructions.Add("Reeses.");
+                    instructions.Add("Reeses");
                 }
                 if (MixInChoice == IceCreamMixIn.MandMs)
                 {
-                    instructions.Add("M&M's.");
+                    instructions.Add("M&M's");
                 }
                 if (MixInChoice == IceCreamMixIn.CookieDough)
                 {

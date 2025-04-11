@@ -128,13 +128,13 @@ namespace DairyBarn.DataTests
         /// <param name="expected">The expected information.</param>
         [Theory]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Add Reeses" })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Add Cookie Dough" })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "Add M&M's "})]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's" })]
-        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough" })]
-        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses" })]
-        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Reeses" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Cookie Dough" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "M&M's"})]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Caramel", "M&M's" })]
+        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Strawberry Sauce", "Cookie Dough" })]
+        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Hot Fudge", "Reeses" })]
+        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Crushed Pineapple", "M&M's" })]
         [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Hold Chocolate Sauce" })]
         public void PrepInfoCheckingForDifferentIngredientTest(IceCreamSauce sauce, IceCreamMixIn mixIn, string[] expected)
         {
