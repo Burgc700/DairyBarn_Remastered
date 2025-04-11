@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace DairyBarn.DataTests
             PickTwo two = new();
 
             Assert.IsAssignableFrom<IMenuItem>(two);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(two);
         }
 
         /// <summary>
@@ -75,6 +77,44 @@ namespace DairyBarn.DataTests
             PickTwo two = new();
 
             Assert.Equal("Pick Two", two.Name);
+        }
+
+        /// <summary>
+        /// Tests to make sure the property changes when the value changes for the BurgerChoice.
+        /// </summary>
+        /// <param name="property">The property we are checking see changed.</param>
+        [Theory]
+        [InlineData("BurgerChoice")]
+        [InlineData("BurgerOptions")]
+        [InlineData("Price")]
+        [InlineData("Calories")]
+        [InlineData("PreparationInformation")]
+        public void ChangingBurgerChoiceInvokesPropertyChanged(string property)
+        {
+            PickTwo two = new();
+            Assert.PropertyChanged(two, property, () =>
+            {
+                two.BurgerChoice = new BBQBaconCheeseburger();
+            });
+        }
+
+        /// <summary>
+        /// Tests to make sure the property changes when the value changes for IceCreamChoice.
+        /// </summary>
+        /// <param name="property">The property we are checking see changed.</param>
+        [Theory]
+        [InlineData("IceCreamChoice")]
+        [InlineData("IceCreamOptions")]
+        [InlineData("Price")]
+        [InlineData("Calories")]
+        [InlineData("PreparationInformation")]
+        public void ChangingIceCreamChoiceChoiceInvokesPropertyChanged(string property)
+        {
+            PickTwo two = new();
+            Assert.PropertyChanged(two, property, () =>
+            {
+                two.IceCreamChoice = new StrawBerryShortcake();
+            });
         }
     }
 }

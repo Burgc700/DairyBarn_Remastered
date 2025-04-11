@@ -38,11 +38,6 @@ namespace DairyBarn.PointOfSale
         public decimal Total => Order.Total;
 
         /// <summary>
-        /// Field to get the change if the value in payment amount is over the payment amount.
-        /// </summary>
-        private decimal _change;
-
-        /// <summary>
         /// Calculates the change.
         /// </summary>
         public decimal Change
@@ -78,6 +73,10 @@ namespace DairyBarn.PointOfSale
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Change)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ValidPaymentAmount)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ErrorMessage)));
+                if(value < Total)
+                {
+                    throw new ArgumentException("Invalid funds.");
+                }
             }
         }
 

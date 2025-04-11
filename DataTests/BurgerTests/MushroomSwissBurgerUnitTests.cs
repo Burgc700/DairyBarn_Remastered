@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -234,6 +235,7 @@ namespace DairyBarn.DataTests
 
             Assert.IsAssignableFrom<IMenuItem>(b);
             Assert.IsAssignableFrom<Burger>(b);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(b);
         }
 
         /// <summary>
@@ -245,6 +247,73 @@ namespace DairyBarn.DataTests
             MushroomSwissBurger b = new();
 
             Assert.Equal("Mushroom Swiss Burger", b.Name);
+        }
+
+        /// <summary>
+        /// Tests that when veggies value changes the other properties values also change.
+        /// </summary>
+        /// <param name="veggie">If this burger has veggie patties.</param>
+        /// <param name="property">The name of the property value that should also change.</param>
+        [Theory]
+        [InlineData(true, "Veggie")]
+        [InlineData(true, "Price")]
+        [InlineData(true, "Calories")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Veggie")]
+        [InlineData(false, "Price")]
+        [InlineData(false, "Calories")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingVeggieNotifyPropertyChanged(bool veggie, string property)
+        {
+            MushroomSwissBurger b = new();
+            Assert.PropertyChanged(b, property, () =>
+            {
+                b.Veggie = veggie;
+            });
+        }
+
+        /// <summary>
+        /// Tests that cheese choice value changes the other properties values also change.
+        /// </summary>
+        /// <param name="cheese">The type of cheese on this burger.</param>
+        /// <param name="property">The name of the property value that should also change.</param>
+        [Theory]
+        [InlineData(Cheese.Swiss, "CheeseChoice")]
+        [InlineData(Cheese.Swiss, "Calories")]
+        [InlineData(Cheese.Swiss, "PreparationInformation")]
+        [InlineData(Cheese.None, "CheeseChoice")]
+        [InlineData(Cheese.None, "Calories")]
+        [InlineData(Cheese.None, "PreparationInformation")]
+        public void ChangingCheeseChoiceNotifyPropertyChanged(Cheese cheese, string property)
+        {
+            MushroomSwissBurger b = new();
+            Assert.PropertyChanged(b, property, () =>
+            {
+                b.CheeseChoice = cheese;
+            });
+        }
+
+        /// <summary>
+        /// Tests that patties value changes the other properties values also change.
+        /// </summary>
+        /// <param name="patty">The number of patties on the burger.</param>
+        /// <param name="property">The name of the property value that should also change.</param>
+        [Theory]
+        [InlineData(1, "Patties")]
+        [InlineData(1, "Calories")]
+        [InlineData(1, "Price")]
+        [InlineData(1, "PreparationInformation")]
+        [InlineData(2, "Patties")]
+        [InlineData(2, "Calories")]
+        [InlineData(2, "Price")]
+        [InlineData(2, "PreparationInformation")]
+        public void ChangingPattiesNotifyPropertyChanged(uint patty, string property)
+        {
+            MushroomSwissBurger b = new();
+            Assert.PropertyChanged(b, property, () =>
+            {
+                b.Patties = patty;
+            });
         }
     }
 }

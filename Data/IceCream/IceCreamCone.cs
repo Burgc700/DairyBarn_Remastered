@@ -76,7 +76,12 @@ namespace DairyBarn.Data
                 if (Dipped == true)
                 {
                     cost += .50m;
+                    if(Scoops == 2)
+                    {
+                        cost += .50m;
+                    }
                 }
+                
                 if (Scoops == 2)
                 {
                     cost += 1.00m;

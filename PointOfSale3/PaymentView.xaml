@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:DairyBarn.PointOfSale"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <StackPanel HorizontalAlignment="Center">
         <TextBlock FontSize="30" Text="Order Summary:" Margin="50"/>
         <TextBlock FontSize="13" Text="{Binding Path=Subtotal, StringFormat=' Subtotal: {0:C}'}" Margin="5"></TextBlock>

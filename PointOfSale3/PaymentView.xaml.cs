@@ -21,7 +21,7 @@ namespace DairyBarn.PointOfSale
     /// </summary>
     public partial class PaymentView : UserControl
     {
-        public event EventHandler<MenuItemEventArgs>? FinishedPayEvent;
+        public event EventHandler<RoutedEventArgs>? FinishedPayEvent;
 
         public PaymentView()
         {
@@ -35,12 +35,13 @@ namespace DairyBarn.PointOfSale
         /// <param name="e">Displays a message box with the message.</param>
         public void FinalizePaymentClick(object sender, RoutedEventArgs e)
         {
-            
-                //string receipt = viewModel.Receipts;
-                //viewModel.FinishPayment();
+            if (DataContext is PaymentViewViewModel finalPayment)
+            {
+                string receipts = finalPayment.Receipts;
+                finalPayment.FinishPayment();
                 MessageBox.Show("Payment has been finalized and the receipt is being printed. Click OK to continue.");
-                //FinishedPayEvent?.Invoke(this, new MenuItemEventArgs(viewModel.Order));
-            
+                FinishedPayEvent?.Invoke(this, new RoutedEventArgs());
+            }
         }
     }
 }

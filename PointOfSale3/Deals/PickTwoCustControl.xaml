@@ -11,13 +11,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <!--<RowDefinition Height="*"/>-->
         </Grid.RowDefinitions>
-
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>-->
 
         <local:BasicInfoControl Grid.Row="0" Grid.Column="0"/>
         <StackPanel Grid.Row="1" Grid.Column="0" Margin="10" Orientation="Horizontal">
@@ -37,15 +31,5 @@
                 <ComboBox ItemsSource="{Binding IceCreamOptions}" SelectedItem="{Binding IceCreamChoice}" Height="30" Width="175" FontSize="12" Margin="10"/>
             </StackPanel>
         </StackPanel>
-
-        <!--<StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-            <Button FontSize="15" Height="30">Edit Burger</Button>
-            <ComboBox ItemsSource="{Binding BurgerOptions}" SelectedItem="{Binding BurgerChoice}" Height="30" Width="150" FontSize="15" Margin="10"/>
-        </StackPanel>-->
-
-        <!--<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
-            <Button FontSize="15" Height="30">Edit IceCream</Button>
-            <ComboBox ItemsSource="{Binding IceCreamOptions}" SelectedItem="{Binding IceCreamChoice}" Height="30" Width="150" FontSize="15" Margin="10"/>
-        </StackPanel>-->
     </Grid>
 </UserControl>

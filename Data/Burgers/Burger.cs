@@ -20,7 +20,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// Gets the information for the burger ingredients.
         /// </summary>
-        public class BurgerIngredient
+        public class BurgerIngredient : INotifyPropertyChanged
         {
             /// <summary>
             /// Listens to Included to see if a topping is included or not included.

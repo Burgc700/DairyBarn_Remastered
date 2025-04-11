@@ -187,8 +187,8 @@ namespace DairyBarn.DataTests
             Order o = new();
             Order o2 = new();
             Order o3 = new();
-            uint currNumber = 2;
-            Assert.Equal(currNumber , o.OrderNumber - 1);
+            uint currNumber = 1;
+            Assert.Equal(currNumber , o.OrderNumber);
 
         }
 

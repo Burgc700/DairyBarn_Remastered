@@ -32,9 +32,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Name="burgerLabel" Grid.Column="0" Grid.Row="0" Text="Burger" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Name="iceCreamLabel" Grid.Column="1" Grid.Row="0" Text="Ice Cream" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Name="drinksLabel" Grid.Column="2" Grid.Row="0" Text="Drinks" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Burger" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Ice Cream" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="2" Grid.Row="0" Text="Drinks" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <Button x:Name="bYOBurger" Grid.Column="0" Grid.Row="1" Content="Build-Your-Own Burger" Click="MenuItemClick"/>
         <Button x:Name="classicCheeseburger" Grid.Column="0" Grid.Row="2" Content="Classic Cheeseburger" Click="MenuItemClick"/>

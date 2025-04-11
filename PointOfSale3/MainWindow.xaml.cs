@@ -482,7 +482,7 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender">The Finish payment and print receipt button.</param>
     /// <param name="e">Displays the correct controls and increments the order, changes the time for date placed.</param>
-    private void HandleFinishPayment(object? sender, MenuItemEventArgs e)
+    private void HandleFinishPayment(object? sender, RoutedEventArgs e)
     {
         PaymentReviewControl.Visibility = Visibility.Hidden;
         MenuItemSelection.Visibility = Visibility.Visible;

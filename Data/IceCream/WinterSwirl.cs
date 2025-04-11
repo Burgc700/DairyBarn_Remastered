@@ -138,10 +138,6 @@ namespace DairyBarn.Data
                 {
                     instructions.Add("Crushed Pineapple");
                 }
-                if (MixInChoice != IceCreamMixIn.Oreos)
-                {
-                    instructions.Add("Hold Oreos");
-                }
                 if (MixInChoice == IceCreamMixIn.Reeses)
                 {
                     instructions.Add("Reeses.");

@@ -18,8 +18,6 @@ namespace DairyBarn.PointOfSale
         /// </summary>
         public IMenuItem MenuItem { get; }
 
-        public Order Order { get; }
-
         /// <summary>
         /// The constructor.
         /// </summary>
@@ -29,9 +27,6 @@ namespace DairyBarn.PointOfSale
             MenuItem = s;
         }
 
-        public MenuItemEventArgs(Order o)
-        {
-            Order = o;
-        }
+        
     }
 }

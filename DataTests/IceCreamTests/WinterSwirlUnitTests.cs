@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -127,14 +128,14 @@ namespace DairyBarn.DataTests
         /// <param name="expected">The expected information.</param>
         [Theory]
         [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Oreos, new string[] { })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Hold Oreos", "Add Reeses" })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Hold Oreos", "Add Cookie Dough" })]
-        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "Hold Oreos", "Add M&M's "})]
-        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's", "Hold Oreos" })]
-        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough", "Hold Oreos" })]
-        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses", "Hold Oreos" })]
-        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's", "Hold Oreos" })]
-        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Oreos" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.Reeses, new string[] { "Add Reeses" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.CookieDough, new string[] { "Add Cookie Dough" })]
+        [InlineData(IceCreamSauce.ChocolateSauce, IceCreamMixIn.MandMs, new string[] { "Add M&M's "})]
+        [InlineData(IceCreamSauce.Caramel, IceCreamMixIn.MandMs, new string[] { "Add Caramel", "Add M&M's" })]
+        [InlineData(IceCreamSauce.StrawberrySauce, IceCreamMixIn.CookieDough, new string[] { "Add Strawberry Sauce", "Add Cookie Dough" })]
+        [InlineData(IceCreamSauce.HotFudge, IceCreamMixIn.Reeses, new string[] { "Add Hot Fudge", "Add Reeses" })]
+        [InlineData(IceCreamSauce.CrushedPineapple, IceCreamMixIn.MandMs, new string[] { "Add Crushed Pineapple", "Add M&M's" })]
+        [InlineData(IceCreamSauce.None, IceCreamMixIn.Oreos, new string[] { "Hold Chocolate Sauce" })]
         public void PrepInfoCheckingForDifferentIngredientTest(IceCreamSauce sauce, IceCreamMixIn mixIn, string[] expected)
         {
             WinterSwirl s = new();
@@ -142,7 +143,7 @@ namespace DairyBarn.DataTests
             s.SauceChoice = sauce;
             s.MixInChoice = mixIn;
 
-            foreach(string info in s.PreparationInformation)
+            foreach(string info in expected)
             {
                 Assert.Contains(info, s.PreparationInformation);
             }
@@ -214,6 +215,7 @@ namespace DairyBarn.DataTests
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(s);
         }
 
         /// <summary>
@@ -225,6 +227,52 @@ namespace DairyBarn.DataTests
             WinterSwirl s = new();
 
             Assert.Equal("Winter Swirl", s.Name);
+        }
+
+        /// <summary>
+        /// Tests if the mix in choice changes as the value changes.
+        /// </summary>
+        /// <param name="mixIn">The type of mix in in the ice cream.</param>
+        /// <param name="property">The property name we are checking to see if it changed.</param>
+        [Theory]
+        [InlineData(IceCreamMixIn.Oreos, "MixInChoice")]
+        [InlineData(IceCreamMixIn.Reeses, "Calories")]
+        [InlineData(IceCreamMixIn.MandMs, "PreparationInformation")]
+        [InlineData(IceCreamMixIn.CookieDough, "MixInChoice")]
+        [InlineData(IceCreamMixIn.Oreos, "Calories")]
+        [InlineData(IceCreamMixIn.Reeses, "PreparationInformation")]
+        [InlineData(IceCreamMixIn.MandMs, "MixInChoice")]
+        [InlineData(IceCreamMixIn.CookieDough, "Calories")]
+        public void ChangingMixInChoiceNotifyPropertyChanged(IceCreamMixIn mixIn, string property)
+        {
+            WinterSwirl s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.MixInChoice = mixIn;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the sauce choice changes as the value changes.
+        /// </summary>
+        /// <param name="sauce">The sauce on the ice cream.</param>
+        /// <param name="property">The property name we are checking to see if it changed.</param>
+        [Theory]
+        [InlineData(IceCreamSauce.Caramel, "SauceChoice")]
+        [InlineData(IceCreamSauce.CrushedPineapple, "Calories")]
+        [InlineData(IceCreamSauce.ChocolateSauce, "PreparationInformation")]
+        [InlineData(IceCreamSauce.HotFudge, "SauceChoice")]
+        [InlineData(IceCreamSauce.StrawberrySauce, "Calories")]
+        [InlineData(IceCreamSauce.Caramel, "PreparationInformation")]
+        [InlineData(IceCreamSauce.None, "SauceChoice")]
+        [InlineData(IceCreamSauce.ChocolateSauce, "Calories")]
+        public void ChangingSauceChoiceNotifyPropertyChanged(IceCreamSauce sauce, string property)
+        {
+            WinterSwirl s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.SauceChoice = sauce;
+            });
         }
     }
 }

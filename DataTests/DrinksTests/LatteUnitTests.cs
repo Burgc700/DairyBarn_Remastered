@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -251,6 +252,7 @@ namespace DairyBarn.DataTests
 
             Assert.IsAssignableFrom<IMenuItem>(d);
             Assert.IsAssignableFrom<Drink>(d);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(d);
         }
 
         /// <summary>
@@ -262,6 +264,88 @@ namespace DairyBarn.DataTests
             Latte d = new();
 
             Assert.Equal("Latte", d.Name);
+        }
+
+        /// <summary>
+        /// Test if the property changed for iced when the value changes.
+        /// </summary>
+        /// <param name="iced">If the drink is iced.</param>
+        /// <param name="property">The name of the property that is changing.</param>
+        [Theory]
+        [InlineData(true, "Iced")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Iced")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingIceShouldNotifyPropertyChanged(bool iced, string property)
+        {
+            Latte d = new();
+            Assert.PropertyChanged(d, property, () =>
+            {
+                d.Iced = iced;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the property changed for decaf when the value changes.
+        /// </summary>
+        /// <param name="decaf">If the drink is decaf.</param>
+        /// <param name="property">The name of the property that is changing.</param>
+        [Theory]
+        [InlineData(true, "Decaf")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Decaf")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingDecafShouldNotifyPropertyChanged(bool decaf, string property)
+        {
+            Latte d = new();
+            Assert.PropertyChanged(d, property, () =>
+            {
+                d.Decaf = decaf;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the property changed for vanilla when the value changes.
+        /// </summary>
+        /// <param name="vanilla">If the drink has vanilla.</param>
+        /// <param name="property">The name of the property that is changing.</param>
+        [Theory]
+        [InlineData(true, "Vanilla")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(true, "Calories")]
+        [InlineData(false, "Vanilla")]
+        [InlineData(false, "PreparationInformation")]
+        [InlineData(false, "Calories")]
+        public void ChangingVanillaShouldNotifyPropertyChanged(bool vanilla, string property)
+        {
+            Latte d = new();
+            Assert.PropertyChanged(d, property, () =>
+            {
+                d.Vanilla = vanilla;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the property changed for size of cup when the value changes.
+        /// </summary>
+        /// <param name="size">The size of the drink.</param>
+        /// <param name="property">The name of the property that is changing.</param>
+        [Theory]
+        [InlineData(CoffeeSize.Venti, "Calories")]
+        [InlineData(CoffeeSize.Tall, "Price")]
+        [InlineData(CoffeeSize.Grande, "PreparationInformation")]
+        [InlineData(CoffeeSize.Tall, "SizeOfCup")]
+        [InlineData(CoffeeSize.Venti, "Price")]
+        [InlineData(CoffeeSize.Tall, "PreparationInformation")]
+        [InlineData(CoffeeSize.Grande, "Price")]
+        [InlineData(CoffeeSize.Venti, "SizeOfCup")]
+        public void ChangingSizeShouldNotifyOfPropertyChanged(CoffeeSize size, string property)
+        {
+            Latte d = new();
+            Assert.PropertyChanged(d, property, () =>
+            {
+                d.SizeOfCup = size;
+            });
         }
     }
 }

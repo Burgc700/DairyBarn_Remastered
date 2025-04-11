@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
@@ -252,6 +253,7 @@ namespace DairyBarn.DataTests
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(s);
         }
 
         /// <summary>
@@ -263,6 +265,92 @@ namespace DairyBarn.DataTests
             StrawBerryShortcake s = new();
 
             Assert.Equal("Strawberry Shortcake", s.Name);
+        }
+
+        /// <summary>
+        /// Tests if the sauce choice changes as the value changes.
+        /// </summary>
+        /// <param name="sauce">Type of sauce on </param>
+        /// <param name="property">The name of the property we checking to see if it changes.</param>
+        [Theory]
+        [InlineData(IceCreamSauce.StrawberrySauce, "SauceChoice")]
+        [InlineData(IceCreamSauce.StrawberrySauce, "Calories")]
+        [InlineData(IceCreamSauce.StrawberrySauce, "PreparationInformation")]
+        [InlineData(IceCreamSauce.None, "SauceChoice")]
+        [InlineData(IceCreamSauce.None, "Calories")]
+        [InlineData(IceCreamSauce.None, "PreparationInformation")]
+        public void ChangingSauceOptionsNotifyPropertyChanged(IceCreamSauce sauce, string property)
+        {
+            StrawBerryShortcake s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.SauceChoice = sauce;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the Whipped cream property changes as the value changes.
+        /// </summary>
+        /// <param name="whippedCream">If the sundae has whipped cream.</param>
+        /// <param name="property">the name of the property we are checking to see if it changes.</param>
+        [Theory]
+        [InlineData(true, "WhippedCream")]
+        [InlineData(true, "Calories")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "WhippedCream")]
+        [InlineData(false, "Calories")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingWhippedCreamNotifyPropertyChanged(bool whippedCream, string property)
+        {
+            StrawBerryShortcake s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.WhippedCream = whippedCream;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the cherry property changes as the value changes.
+        /// </summary>
+        /// <param name="cherry">If the sundae has a cherry.</param>
+        /// <param name="property">The name of the property we are checking to see if it changes.</param>
+        [Theory]
+        [InlineData(true, "Cherry")]
+        [InlineData(true, "Calories")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Cherry")]
+        [InlineData(false, "Calories")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingCherryNotifyPropertyChanged(bool cherry, string property)
+        {
+            StrawBerryShortcake s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.Cherry = cherry;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the peanuts property changes as the value changes.
+        /// </summary>
+        /// <param name="peanut">If the sundae has peanuts.</param>
+        /// <param name="property">The name of the property we are checking to see if it changes.</param>
+        [Theory]
+        [InlineData(true, "Peanuts")]
+        [InlineData(true, "Price")]
+        [InlineData(true, "Calories")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Peanuts")]
+        [InlineData(false, "Price")]
+        [InlineData(false, "Calories")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingPeanutNotifyPropertyChanged(bool peanut, string property)
+        {
+            StrawBerryShortcake s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.Peanuts = peanut;
+            });
         }
     }
 }

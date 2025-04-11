@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -84,9 +85,9 @@ namespace DairyBarn.DataTests
         [InlineData(false, Cone.Cake, 2, 2.49 + 1.00)]
         [InlineData(false, Cone.Waffle, 2, 2.49 + 2.00)]
         [InlineData(false, Cone.ChocolateWaffle, 2, 2.49 + 2.50)]
-        [InlineData(true, Cone.ChocolateWaffle, 2, 2.49 + 2.50 + .50)]
-        [InlineData(true, Cone.Waffle, 2, 2.49 + 2.00 + .50)]
-        [InlineData(true, Cone.Cake, 2, 2.49 + 1.50)]
+        [InlineData(true, Cone.ChocolateWaffle, 2, 2.49 + 2.50 + .50 + .50)]
+        [InlineData(true, Cone.Waffle, 2, 2.49 + 2.00 + .50 + .50)]
+        [InlineData(true, Cone.Cake, 2, 2.49 + 1.50 +.50)]
         [InlineData(true, Cone.None, 1, 2.49 + .50)]
         public void PriceCheckingForDifferentIngredientTest(bool dipped, Cone typeOfCone, uint scoops, decimal expected)
         {
@@ -228,6 +229,7 @@ namespace DairyBarn.DataTests
 
             Assert.IsAssignableFrom<IMenuItem>(s);
             Assert.IsAssignableFrom<IceCream>(s);
+            Assert.IsAssignableFrom<INotifyPropertyChanged>(s);
         }
 
         /// <summary>
@@ -239,6 +241,75 @@ namespace DairyBarn.DataTests
             IceCreamCone s = new();
 
             Assert.Equal("Ice Cream Cone", s.Name);
+        }
+
+        /// <summary>
+        /// Tests if the dipped property changes when the value changes.
+        /// </summary>
+        /// <param name="dipped">If the ice cream is dipped.</param>
+        /// <param name="property">The property name we are checking if it changes.</param>
+        [Theory]
+        [InlineData(true, "Dipped")]
+        [InlineData(true, "Price")]
+        [InlineData(true, "Calories")]
+        [InlineData(true, "PreparationInformation")]
+        [InlineData(false, "Dipped")]
+        [InlineData(false, "Price")]
+        [InlineData(false, "Calories")]
+        [InlineData(false, "PreparationInformation")]
+        public void ChangingDippedNotifyPropertyChanged(bool dipped, string property)
+        {
+            IceCreamCone s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.Dipped = dipped;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the type of cone property changes when the value changes.
+        /// </summary>
+        /// <param name="cone">The type of cone for the ice cream.</param>
+        /// <param name="property">The property name we are checking if it changes.</param>
+        [Theory]
+        [InlineData(Cone.Waffle, "Calories")]
+        [InlineData(Cone.ChocolateWaffle, "PreparationInformation")]
+        [InlineData(Cone.None, "TypeOfCone")]
+        [InlineData(Cone.Cake, "TypeOfCone")]
+        [InlineData(Cone.Waffle, "PreparationInformation")]
+        [InlineData(Cone.ChocolateWaffle, "Calories")]
+        [InlineData(Cone.Cake, "Calories")]
+        [InlineData(Cone.None, "PreparationInformation")]
+        public void ChangingConeTypeNotifyPropertyChanged(Cone cone, string property)
+        {
+            IceCreamCone s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.TypeOfCone = cone;
+            });
+        }
+
+        /// <summary>
+        /// Tests if the scoops property changes when the value changes.
+        /// </summary>
+        /// <param name="scoops">The number of scoops of ice cream.</param>
+        /// <param name="property">The property name we are checking if it changes.</param>
+        [Theory]
+        [InlineData(1, "Scoops")]
+        [InlineData(1, "Calories")]
+        [InlineData(1, "Price")]
+        [InlineData(1, "PreparationInformation")]
+        [InlineData(2, "Scoops")]
+        [InlineData(2, "Calories")]
+        [InlineData(2, "Price")]
+        [InlineData(2, "PreparationInformation")]
+        public void ChangingScoopsNotifyPropertyChanged(uint scoops, string property)
+        {
+            IceCreamCone s = new();
+            Assert.PropertyChanged(s, property, () =>
+            {
+                s.Scoops = scoops;
+            });
         }
     }
 }

@@ -17,15 +17,15 @@
             <TextBlock Text="{Binding Path=PlacedAt, StringFormat='Date: {0}'}"/>
         </StackPanel>
         
-        <ListView x:Name="orderHistory" ItemsSource="{Binding}" DockPanel.Dock="Top" Height="375" Margin="5" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch">
+        <ListView ItemsSource="{Binding}" DockPanel.Dock="Top" Height="375" Margin="5" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <DockPanel>
-                            <TextBlock x:Name="itemPrice" DockPanel.Dock="Right" Text="{Binding Price, StringFormat='{}{0:C}'}"/>
-                            <TextBlock x:Name="itemName" DockPanel.Dock="Left" Text="{Binding Path=Name}"/>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Price, StringFormat='{}{0:C}'}"/>
+                            <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Name}"/>
                         </DockPanel>
-                        <ListView x:Name="prepInfo" ItemsSource="{Binding Path=PreparationInformation}"/>
+                        <ListView ItemsSource="{Binding Path=PreparationInformation}"/>
                         <Button Click="RemoveClick">Remove</Button>
                         <Button Click="EditClick">Edit</Button>
                     </StackPanel>
