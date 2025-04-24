@@ -49,8 +49,8 @@ namespace DairyBarn.Data
             _cheeseChoice = Cheese.Swiss;
             CheeseOptions.Add(_defaultCheese);
             CheeseOptions.Add(Cheese.None);
-            AllToppings[BurgerTopping.GrilledOnions] = new BurgerIngredient(BurgerTopping.GrilledOnions, "Grilled Onions", true, true);
-            AllToppings[BurgerTopping.GrilledMushrooms] = new BurgerIngredient(BurgerTopping.GrilledMushrooms, "Grilled Mushrooms", true, true);
+            AllToppings[BurgerTopping.GrilledOnions] = new BurgerIngredient(BurgerTopping.GrilledOnions, "Grilled Onions", true, true, 1.00m, 50);
+            AllToppings[BurgerTopping.GrilledMushrooms] = new BurgerIngredient(BurgerTopping.GrilledMushrooms, "Grilled Mushrooms", true, true, 1.00m, 60);
             foreach (BurgerIngredient ing in AllToppings.Values)
             {
                 ing.PropertyChanged += HandleIngredientChanged!;

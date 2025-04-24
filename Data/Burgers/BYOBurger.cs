@@ -54,18 +54,18 @@ namespace DairyBarn.Data
             CheeseOptions.Add(Cheese.PepperJack);
             CheeseOptions.Add(Cheese.Cheddar);
             CheeseOptions.Add(Cheese.None);
-            AllToppings[BurgerTopping.Ketchup] = new BurgerIngredient(BurgerTopping.Ketchup, "Ketchup", false, false);
-            AllToppings[BurgerTopping.Mustard] = new BurgerIngredient(BurgerTopping.Mustard, "Mustard", false, false);
-            AllToppings[BurgerTopping.Onions] = new BurgerIngredient(BurgerTopping.Onions, "Onions", false, false);
-            AllToppings[BurgerTopping.Pickles] = new BurgerIngredient(BurgerTopping.Pickles, "Pickles", false, false);
-            AllToppings[BurgerTopping.Bacon] = new BurgerIngredient(BurgerTopping.Bacon, "Bacon", false, false);
-            AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", false, false);
-            AllToppings[BurgerTopping.Tomato] = new BurgerIngredient(BurgerTopping.Tomato, "Tomato", false, false);
-            AllToppings[BurgerTopping.CrispyFriedOnions] = new BurgerIngredient(BurgerTopping.CrispyFriedOnions, "Crispy Fried Onions", false, false);
-            AllToppings[BurgerTopping.BBQSauce] = new BurgerIngredient(BurgerTopping.BBQSauce, "BBQ Sauce", false, false);
-            AllToppings[BurgerTopping.GrilledMushrooms] = new BurgerIngredient(BurgerTopping.GrilledMushrooms, "Grilled Mushrooms", false, false);
-            AllToppings[BurgerTopping.GrilledOnions] = new BurgerIngredient(BurgerTopping.GrilledOnions, "Grilled Onions", false, false);
-            AllToppings[BurgerTopping.ChipotleMayo] = new BurgerIngredient(BurgerTopping.ChipotleMayo, "Chipotle Mayo", false, false);
+            AllToppings[BurgerTopping.Ketchup] = new BurgerIngredient(BurgerTopping.Ketchup, "Ketchup", false, false, 0.00m, 20);
+            AllToppings[BurgerTopping.Mustard] = new BurgerIngredient(BurgerTopping.Mustard, "Mustard", false, false, 0.00m, 5);
+            AllToppings[BurgerTopping.Onions] = new BurgerIngredient(BurgerTopping.Onions, "Onions", false, false, 0.00m, 5);
+            AllToppings[BurgerTopping.Pickles] = new BurgerIngredient(BurgerTopping.Pickles, "Pickles", false, false, 0.00m, 5);
+            AllToppings[BurgerTopping.Bacon] = new BurgerIngredient(BurgerTopping.Bacon, "Bacon", false, false, 1.00m, 75);
+            AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", false, false, .25m, 5);
+            AllToppings[BurgerTopping.Tomato] = new BurgerIngredient(BurgerTopping.Tomato, "Tomato", false, false, .25m, 5);
+            AllToppings[BurgerTopping.CrispyFriedOnions] = new BurgerIngredient(BurgerTopping.CrispyFriedOnions, "Crispy Fried Onions", false, false, .50m, 70);
+            AllToppings[BurgerTopping.BBQSauce] = new BurgerIngredient(BurgerTopping.BBQSauce, "BBQ Sauce", false, false, .25m, 40);
+            AllToppings[BurgerTopping.GrilledMushrooms] = new BurgerIngredient(BurgerTopping.GrilledMushrooms, "Grilled Mushrooms", false, false, 1.00m, 60);
+            AllToppings[BurgerTopping.GrilledOnions] = new BurgerIngredient(BurgerTopping.GrilledOnions, "Grilled Onions", false, false, 1.00m, 50);
+            AllToppings[BurgerTopping.ChipotleMayo] = new BurgerIngredient(BurgerTopping.ChipotleMayo, "Chipotle Mayo", false, false, .25m, 90);
             foreach (BurgerIngredient ing in AllToppings.Values)
             {
                 ing.PropertyChanged += HandleIngredientChanged!;

@@ -59,11 +59,11 @@ namespace DairyBarn.Data
             _cheeseChoice = Cheese.PepperJack;
             CheeseOptions.Add(_defaultCheese);
             CheeseOptions.Add(Cheese.None);
-            AllToppings[BurgerTopping.ChipotleMayo] = new BurgerIngredient(BurgerTopping.ChipotleMayo, "Chipotle Mayo", true, true);
-            AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", true, true);
-            AllToppings[BurgerTopping.Tomato] = new BurgerIngredient(BurgerTopping.Tomato, "Tomato", true, true);
-            AllToppings[BurgerTopping.Onions] = new BurgerIngredient(BurgerTopping.Onions, "Onions", false, false);
-            AllToppings[BurgerTopping.Pickles] = new BurgerIngredient(BurgerTopping.Pickles, "Pickles", false, false);
+            AllToppings[BurgerTopping.ChipotleMayo] = new BurgerIngredient(BurgerTopping.ChipotleMayo, "Chipotle Mayo", true, true, .25m, 90);
+            AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", true, true, .25m, 5);
+            AllToppings[BurgerTopping.Tomato] = new BurgerIngredient(BurgerTopping.Tomato, "Tomato", true, true, .25m, 5);
+            AllToppings[BurgerTopping.Onions] = new BurgerIngredient(BurgerTopping.Onions, "Onions", false, false, 0.00m, 5);
+            AllToppings[BurgerTopping.Pickles] = new BurgerIngredient(BurgerTopping.Pickles, "Pickles", false, false, 0.00m, 5);
             foreach (BurgerIngredient ing in AllToppings.Values)
             {
                 ing.PropertyChanged += HandleIngredientChanged!;

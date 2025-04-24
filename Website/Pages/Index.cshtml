@@ -1,0 +1,103 @@
+﻿@page
+@model IndexModel
+@using DairyBarn.Data
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To Dairy Barn</h1>
+    <p>Hello! Below is combinations available for our burgers, ice creams and drinks. Any burger and ice cream can be combined into a Pick Two option for a 25% discount!</p>
+
+    <h1 id="burgers">Burgers</h1>
+    <ul class="menu-item">
+        @foreach (Burger burger in Menu.Burgers)
+        {
+            <li>
+                <div class="details">
+                    <h3 class="name">@burger.Name</h3>
+                    <p class="desc">@burger.Description</p>
+                    <ul class="prep">
+                        @foreach(string prep in burger.PreparationInformation)
+                        {
+                            <li>
+                                <p>@prep </p>
+                            </li>
+                        }
+                    </ul>
+                    <p class="price">Price: $@burger.Price</p>
+                    <p class="cals">Calories: @burger.Calories</p>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <h1 id="ing">Ingredients</h1>
+    <div class="table-display">
+        <table class="topp">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                 <th>Additional Cost (Helpful when customizing burgers)</th>
+                </tr>
+            </thead>
+            @foreach(Burger.BurgerIngredient topp in Menu.Toppings)
+            {
+                <tbody>
+                    <tr>
+                        <td>@topp.Name</td>
+                        <td>@topp.Calories</td>
+                        <td>@topp.AdditionalCost</td>
+                    </tr>
+             </tbody> 
+            }
+        </table>
+    </div>
+
+    <h1 id="iceCream">Ice Cream</h1>
+    <ul class="menu-item">
+        @foreach (IceCream iceCream in Menu.IceCream)
+        {
+            <li>
+                <div class="details">
+                    <h3 class="name">@iceCream.Name</h3>
+                    <p class="desc">@iceCream.Description</p>
+                    <ul class="prep">
+                        @foreach (string prep in iceCream.PreparationInformation)
+                        {
+                            <li>
+                                <p>@prep </p>
+                            </li>
+                        }
+                    </ul>
+                    <p class="price">Price: $@iceCream.Price</p>
+                    <p class="cals">Calories: @iceCream.Calories</p>
+                </div>
+            </li>
+        }
+    </ul>
+
+    <h1 id="drinks">Drinks</h1>
+    <ul class="menu-item">
+        @foreach (Drink drinks in Menu.Drinks)
+        {
+            <li>
+                <div class="details">
+                    <h3 class="name">@drinks.Name</h3>
+                    <p class="desc">@drinks.Description</p>
+                    <ul class="prep">
+                        @foreach (string prep in drinks.PreparationInformation)
+                        {
+                            <li>
+                                <p>@prep </p>
+                            </li>
+                        }
+                    </ul>
+                    <p class="price">Price: $@drinks.Price</p>
+                    <p class="cals">Calories: @drinks.Calories</p>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

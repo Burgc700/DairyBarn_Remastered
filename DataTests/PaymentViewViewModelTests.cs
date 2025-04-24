@@ -67,7 +67,7 @@ namespace DairyBarn.DataTests
 
             ClassicCheeseburger b3 = new();
             b3.CheeseChoice = Cheese.None;
-            b3.AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", true, false);
+            b3.AllToppings[BurgerTopping.Lettuce] = new BurgerIngredient(BurgerTopping.Lettuce, "Lettuce", true, false, .25m, 5);
 
             BrownieSundae s1 = new();
             s1.Peanuts = true;

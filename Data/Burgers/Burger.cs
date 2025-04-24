@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace DairyBarn.Data
 {
@@ -61,18 +56,30 @@ namespace DairyBarn.Data
             public bool Default { get; set; }
 
             /// <summary>
+            /// The additional price for a topping.
+            /// </summary>
+            public decimal AdditionalCost { get; }
+
+            /// <summary>
+            /// The calories for the topping
+            /// </summary>
+            public uint Calories { get; }
+
+            /// <summary>
             /// The constructor.
             /// </summary>
             /// <param name="topp"></param>
             /// <param name="name">The name of the topping.</param>
             /// <param name="included">If the topping is included on the burger.</param>
             /// <param name="def">If the topping is a default item on the burger.</param>
-            public BurgerIngredient(BurgerTopping topp, string name, bool included, bool def)
+            public BurgerIngredient(BurgerTopping topp, string name, bool included, bool def, decimal price, uint cals) 
             {
                 Toppings = topp;
                 Name = name;
                 Included = included;
                 Default = def;
+                Calories = cals;
+                AdditionalCost = price;
             }
         }
 
@@ -97,8 +104,6 @@ namespace DairyBarn.Data
                 _partOfPickTwo = value;
                 OnPropertyChanged(nameof(PartOfPickTwo));
             }
-
-            
         }
 
         /// <summary>
@@ -263,6 +268,11 @@ namespace DairyBarn.Data
         protected uint _minPatties = 1;
 
         /// <summary>
+        /// The minimum number of patties for the burger.
+        /// </summary>
+        public uint MinPatties => _minPatties;
+
+        /// <summary>
         /// The default number of patties on the burger.
         /// </summary>
         protected uint _defaultPatties = 1;
@@ -271,6 +281,11 @@ namespace DairyBarn.Data
         /// The maximum number of patties on the burger.
         /// </summary>
         protected uint _maxPatties;
+
+        /// <summary>
+        /// The maximum number of patties for the burger.
+        /// </summary>
+        public uint MaxPatties => _maxPatties;
 
         /// <summary>
         /// The number of patties on the burger.
@@ -285,7 +300,7 @@ namespace DairyBarn.Data
             get => _patties;
             set
             {
-                if (value >= _minPatties && value <= _maxPatties)
+                if (value >= MinPatties && value <= MaxPatties)
                 {
                     _patties = value;
                 }
@@ -332,7 +347,7 @@ namespace DairyBarn.Data
         /// <summary>
         /// Changes price, calories, and preparation information for different toppings.
         /// </summary>
-        /// <param name="sender">Any of the check boxs to customize the burger toppings.</param>
+        /// <param name="sender">Any of the check box's to customize the burger toppings.</param>
         /// <param name="e">Changes the properties and reflects them on the GUI.</param>
         protected void HandleIngredientChanged(object sender, PropertyChangedEventArgs e)
         {
