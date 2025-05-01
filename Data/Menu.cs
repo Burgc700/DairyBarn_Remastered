@@ -57,6 +57,16 @@ namespace DairyBarn.Data
         public static List<Burger.BurgerIngredient> Toppings => _toppings;
 
         /// <summary>
+        /// Field that adds the menu items to the property.
+        /// </summary>
+        private static List<IMenuItem> _fullMenu;
+
+        /// <summary>
+        /// The full list of menu items.
+        /// </summary>
+        public static List<IMenuItem> FullMenu => _fullMenu;
+
+        /// <summary>
         /// Static constructor.
         /// </summary>
         static Menu()
@@ -65,6 +75,7 @@ namespace DairyBarn.Data
             _iceCream = new List<IMenuItem>();
             _drinks = new List<IMenuItem>();
             _toppings = new List<Burger.BurgerIngredient>();
+            _fullMenu = new List<IMenuItem>();
             BurgerOptions();
             ClassicSundaeOptions();
             BrownieSundaeOptions();
@@ -73,6 +84,9 @@ namespace DairyBarn.Data
             IceCreamConeOptions();
             DrinkOptions();
             ToppingsOptions();
+            _fullMenu.AddRange(_burgers);
+            _fullMenu.AddRange(IceCream);
+            _fullMenu.AddRange(Drinks);
         }
 
         /// <summary>
@@ -335,6 +349,90 @@ namespace DairyBarn.Data
             AddTopping(BurgerTopping.BBQSauce);
             AddTopping(BurgerTopping.CrispyFriedOnions);
             AddTopping(BurgerTopping.ChipotleMayo);
-        }    
+        }
+        
+        /// <summary>
+        /// Filters the search terms in search box.
+        /// </summary>
+        /// <param name="terms">The string input in the text box.</param>
+        /// <param name="item">The items that contains the terms.</param>
+        /// <returns>A list of items that have that term in the search box.</returns>
+        public static IEnumerable<IMenuItem> Search(IEnumerable<IMenuItem> item, string terms)
+        {
+            List<IMenuItem> results = new List<IMenuItem>();
+            
+            if (terms == null) return item;
+            
+            foreach (IMenuItem menu in item)
+            {
+                bool tracker = true;
+               
+                foreach (string word in terms.Split(' '))
+                {
+                    bool foundWord = false;
+                    if (menu.Name != null && menu.Name.Contains(word, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        foundWord = true;
+                    }
+                    else if (menu.Description != null && menu.Description.Contains(word, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        foundWord = true;
+                    }
+                    
+                    foreach (string prep in menu.PreparationInformation)
+                    {
+                        if (menu.PreparationInformation != null && prep.Contains(word, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            foundWord = true;
+                        }
+                    }
+                    if(foundWord == false)
+                    {
+                        tracker = false;
+                    }
+                }
+                if(tracker == true)
+                {
+                    results.Add(menu);
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Filters the items by the calories.
+        /// </summary>
+        /// <param name="item">The items that are between the bounds.</param>
+        /// <param name="min">The minimum calories we want to search for.</param>
+        /// <param name="max">The maximum calories we want to search for.</param>
+        /// <returns>The menu items whose calories are within those bounds.</returns>
+        public static IEnumerable<IMenuItem> FilterByCalories(IEnumerable<IMenuItem> item, int? min, int? max)
+        {
+            if (min == null && max == null) return item;
+
+            else if (min == null) return item.Where(menu => menu.Calories <= max);
+
+            else if (max == null) return item.Where(menu => menu.Calories >= min);
+
+            else return item.Where(menu => menu.Calories <= max && menu.Calories >= min);
+        }
+
+        /// <summary>
+        /// Filters the items by price.
+        /// </summary>
+        /// <param name="item">The items that are between the bounds.</param>
+        /// <param name="min">The minimum price we want to search for.</param>
+        /// <param name="max">The maximum price we want to search for.</param>
+        /// <returns>The menu items whose price are within those bounds.</returns>
+        public static IEnumerable<IMenuItem> FilterByPrice(IEnumerable<IMenuItem> item, decimal? min, decimal? max)
+        {
+            if (min == null && max == null) return item;
+
+            else if (min == null) return item.Where(menu => menu.Price <= max);
+
+            else if (max == null) return item.Where(menu => menu.Price >= min);
+
+            else return item.Where(menu => menu.Price <= max && menu.Price >= min);
+        }
     }
 }
