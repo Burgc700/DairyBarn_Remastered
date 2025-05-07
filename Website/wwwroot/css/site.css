@@ -100,5 +100,30 @@ form#menu-items{
     margin-top: 2rem;
 }
 
+#textblock{
+    height: 20rem;
+    width: 50rem;
+}
 
+#review-make {
+    align-content: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+    margin-bottom: 0.2rem;
+    margin-top: .5rem;
+    margin-right: 0.2rem;
+}
 
+#reviews{
+    text-align: center;
+}
+
+#review-list{
+    border-top: 3px solid lightblue;
+    list-style-type: none;
+}
+
+#sumbited-reviews {
+    border-top: 3px solid lightblue;
+}

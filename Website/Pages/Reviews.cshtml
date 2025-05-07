@@ -1,0 +1,25 @@
+﻿@page
+@model Website.Pages.ReviewsModel
+@using DairyBarn.Data
+@{
+	ViewData["Title"] = "Reviews Page";
+}
+
+@* <form method="post">
+	<input type="text" name="Reviews" placeholder="Write review here" value="@Model.Review"/>
+	<input type="submit" value="Submit Review"/>
+</form> *@
+
+<h1 id="reviews">Reviews</h1>
+
+<form method="post" id="review-make">
+	<input type="text" name="Review" placeholder="Write review here" value="@Model.Review" id="textblock"/>
+	<input type="submit" value="Submit Review" id="submit-block"/>
+</form>
+
+<ul id="review-list">
+	@foreach(Review r in Model.AllReviews)
+	{
+		<li id="sumbited-reviews">@r</li>
+	}
+</ul>
